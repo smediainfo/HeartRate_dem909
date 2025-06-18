@@ -12,6 +12,7 @@ workflows:
         team_id: 9P5P38899F
       vars:
         BUNDLE_ID: "com.stress.heartrate.app"
+        XCODE_WORKSPACE: "cl.heart.xcworkspace"
         XCODE_PROJECT: "cl.heart.xcodeproj"
         XCODE_SCHEME: "cl.heart"
         APP_STORE_APPLE_ID: 6746779084
@@ -20,7 +21,7 @@ workflows:
       - name: Resolve Swift Package Manager dependencies
         script: |
           xcodebuild -resolvePackageDependencies \
-            -project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+            -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             -scheme "$XCODE_SCHEME"
       - name: Increment build number
         script: |
@@ -33,9 +34,12 @@ workflows:
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa \
-          --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+          --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
           --scheme "$XCODE_SCHEME" \
           --xcargs "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=9P5P38899F PROVISIONING_PROFILE_SPECIFIER='Heart Rate' CODE_SIGN_IDENTITY='Apple Distribution'"
+      - name: Check ipa contents
+        script: |
+          unzip -l $CM_BUILD_DIR/build/ios/ipa/*.ipa
 
     artifacts:
       - build/ios/ipa/*.ipa
