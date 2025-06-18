@@ -22,29 +22,33 @@ workflows:
           xcodebuild -resolvePackageDependencies \
             -project "$CM_BUILD_DIR/$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME"
-#      - name: Set up provisioning profiles settings on Xcode project
-#        script: |
-#          xcode-project use-profiles --project "$CM_BUILD_DIR/$XCODE_PROJECT"
+
+      - name: Set up provisioning profiles settings on Xcode project
+        script: |
+          xcode-project use-profiles \
+            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+            --bundle-id "com.stress.heartrate.app" \
+            --team-id "9P5P38899F" \
+            --profile "Heart Rate"
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+      - name: Clean DerivedData
+        script: |
+          rm -rf ~/Library/Developer/Xcode/DerivedData
       - name: Build ipa for distribution
-         script: |
-           xcode-project build-ipa \
-           --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
-           --scheme "$XCODE_SCHEME" \
-           --xcargs "
-           CODE_SIGN_STYLE=Manual
-           DEVELOPMENT_TEAM=9P5P38899F
-           PROVISIONING_PROFILE_SPECIFIER='Heart Rate'
-           CODE_SIGN_IDENTITY='Apple Distribution'"
-#      - name: Build ipa for distribution
-#        script: |
-#          xcode-project build-ipa \
-#            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
-#            --scheme "$XCODE_SCHEME"
+        script: |
+          xcode-project build-ipa \
+            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME" \
+            --xcargs "
+              CODE_SIGN_STYLE=Manual
+              DEVELOPMENT_TEAM=9P5P38899F
+              PROVISIONING_PROFILE_SPECIFIER='Heart Rate'
+              CODE_SIGN_IDENTITY='Apple Distribution'"
+
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
@@ -61,13 +65,9 @@ workflows:
       app_store_connect:
         auth: integration
 
-        # Configuration related to TestFlight (optional)
-        # Note: This action is performed during post-processing.
         submit_to_testflight: true
-        beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
+        beta_groups:
           - group name 1
           - group name 2
 
-        # Configuration related to App Store (optional)
-        # Note: This action is performed during post-processing.
         submit_to_app_store: false
