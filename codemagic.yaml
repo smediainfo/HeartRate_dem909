@@ -9,7 +9,6 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.stress.heartrate.app
-        team_id: 9P5P38899F
       vars:
         BUNDLE_ID: "com.stress.heartrate.app"
         XCODE_WORKSPACE: "cl.heart.xcworkspace"
@@ -47,10 +46,6 @@ workflows:
           -archivePath $CM_BUILD_DIR/build/ios/cl.heart.xcarchive \
           -exportPath $CM_BUILD_DIR/build/ios/ipa \
           -exportOptionsPlist $CM_BUILD_DIR/exportOptions.plist
-      - name: Check ipa contents
-        script: |
-          unzip -l $CM_BUILD_DIR/build/ios/ipa/*.ipa
-
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
