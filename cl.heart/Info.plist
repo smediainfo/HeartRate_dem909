@@ -6,5 +6,7 @@
 	<array>
 		<string>Inter-VariableFont_opsz,wght.ttf</string>
 	</array>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
 </dict>
 </plist>
