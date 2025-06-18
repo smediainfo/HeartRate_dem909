@@ -14,7 +14,6 @@ workflows:
         XCODE_PROJECT: "cl.heart.xcodeproj"
         XCODE_SCHEME: "cl.heart"
         APP_STORE_APPLE_ID: 6746779084
-        XCODE_XCCONFIG_FILE: "$CM_BUILD_DIR/ci-overrides.xcconfig"
       xcode: latest
     scripts:
       - name: Resolve Swift Package Manager dependencies
@@ -29,16 +28,11 @@ workflows:
           cd $CM_BUILD_DIR
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
-      - name: Apply CI-specific build config
-        script: |
-          echo 'OTHER_CFLAGS = $(inherited) -Wno-error=non-modular-include-in-framework-module' > $CM_BUILD_DIR/ci-overrides.xcconfig
-          echo 'GCC_TREAT_WARNINGS_AS_ERRORS = NO' >> $CM_BUILD_DIR/ci-overrides.xcconfig
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME" \
-            --xcconfig "$CM_BUILD_DIR/ci-overrides.xcconfig"
+            --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
