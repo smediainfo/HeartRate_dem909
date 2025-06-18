@@ -41,8 +41,6 @@
 		467E5C7F2DDDF061001B9048 /* Exceptions for "cl.heart" folder in "cl.heart" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				codemagic.yaml,
-				exportOptions.plist,
 				Info.plist,
 			);
 			target = 467E5C6C2DDDF05F001B9048 /* cl.heart */;
