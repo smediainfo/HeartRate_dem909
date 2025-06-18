@@ -9,6 +9,7 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.stress.heartrate.app
+        team_id: 9P5P38899F
       vars:
         BUNDLE_ID: "com.stress.heartrate.app"
         XCODE_PROJECT: "cl.heart.xcodeproj"
