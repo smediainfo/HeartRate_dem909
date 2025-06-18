@@ -22,14 +22,6 @@ workflows:
           xcodebuild -resolvePackageDependencies \
             -project "$CM_BUILD_DIR/$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME"
-
-      - name: Set up provisioning profiles settings on Xcode project
-        script: |
-          xcode-project use-profiles \
-            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
-            --bundle-id "com.stress.heartrate.app" \
-            --team-id "9P5P38899F" \
-            --profile "Heart Rate"
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR
@@ -41,13 +33,9 @@ workflows:
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa \
-            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME" \
-            --xcargs "
-              CODE_SIGN_STYLE=Manual
-              DEVELOPMENT_TEAM=9P5P38899F
-              PROVISIONING_PROFILE_SPECIFIER='Heart Rate'
-              CODE_SIGN_IDENTITY='Apple Distribution'"
+          --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+          --scheme "$XCODE_SCHEME" \
+          --xcargs "CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=9P5P38899F PROVISIONING_PROFILE_SPECIFIER='Heart Rate' CODE_SIGN_IDENTITY='Apple Distribution'"
 
     artifacts:
       - build/ios/ipa/*.ipa

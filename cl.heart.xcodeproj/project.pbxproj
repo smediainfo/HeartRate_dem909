@@ -47,22 +47,11 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		46442C962E03244500BEC27E /* Exceptions for "cl.heart" folder in "Compile Sources" phase from "cl.heart" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 467E5C692DDDF05F001B9048 /* Sources */;
-			membershipExceptions = (
-				Assets.xcassets,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		467E5C6F2DDDF05F001B9048 /* cl.heart */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				467E5C7F2DDDF061001B9048 /* Exceptions for "cl.heart" folder in "cl.heart" target */,
-				46442C962E03244500BEC27E /* Exceptions for "cl.heart" folder in "Compile Sources" phase from "cl.heart" target */,
 			);
 			path = cl.heart;
 			sourceTree = "<group>";
