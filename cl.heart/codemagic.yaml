@@ -14,6 +14,7 @@ workflows:
         XCODE_PROJECT: "cl.heart.xcodeproj"
         XCODE_SCHEME: "cl.heart"
         APP_STORE_APPLE_ID: 6746779084
+        XCODE_XCCONFIG_FILE: "$CM_BUILD_DIR/ci-overrides.xcconfig"
       xcode: latest
     scripts:
       - name: Resolve Swift Package Manager dependencies
@@ -35,8 +36,7 @@ workflows:
         script: |
           xcode-project build-ipa \
             --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME" \
-            --xcargs "OTHER_CFLAGS='-Wno-error=non-modular-include-in-framework-module'"
+            --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
