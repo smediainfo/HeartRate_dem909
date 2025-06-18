@@ -1,1 +1,2 @@
 OTHER_CFLAGS = $(inherited) -Wno-error=non-modular-include-in-framework-module
+GCC_TREAT_WARNINGS_AS_ERRORS = NO
