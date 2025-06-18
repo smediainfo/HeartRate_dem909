@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4607BB5E2DE8DEE800FB53D1 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 4607BB5D2DE8DEE800FB53D1 /* DGCharts */; };
+		46442C922E02F4DF00BEC27E /* IMProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 46442C912E02F4DF00BEC27E /* IMProgressHUD */; };
 		4677EB4B2DF302EF007B74A7 /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4677EB4A2DF302EF007B74A7 /* AppsFlyerLib */; };
 		467E5C8D2DDDF171001B9048 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8C2DDDF171001B9048 /* RealmSwift */; };
 		467E5C902DDDF17C001B9048 /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8F2DDDF17C001B9048 /* SwiftyStoreKit */; };
-		467E5C932DDDF186001B9048 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C922DDDF186001B9048 /* SVProgressHUD */; };
 		467E5C962DDDF1A7001B9048 /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C952DDDF1A7001B9048 /* UICircularProgressRing */; };
 		467E5C992DDDF1B8001B9048 /* ApphudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C982DDDF1B8001B9048 /* ApphudSDK */; };
 		467E5D242DDE36F4001B9048 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8C2DDDF171001B9048 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -64,13 +64,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				46E1A5A12DFC474F001268DC /* Crypto in Frameworks */,
-				467E5C932DDDF186001B9048 /* SVProgressHUD in Frameworks */,
 				4677EB4B2DF302EF007B74A7 /* AppsFlyerLib in Frameworks */,
 				467E5C8D2DDDF171001B9048 /* RealmSwift in Frameworks */,
 				467E5C992DDDF1B8001B9048 /* ApphudSDK in Frameworks */,
 				467E5C962DDDF1A7001B9048 /* UICircularProgressRing in Frameworks */,
 				467E5D3D2DDFC9D1001B9048 /* Pulsator in Frameworks */,
 				4607BB5E2DE8DEE800FB53D1 /* DGCharts in Frameworks */,
+				46442C922E02F4DF00BEC27E /* IMProgressHUD in Frameworks */,
 				467E5C902DDDF17C001B9048 /* SwiftyStoreKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,13 +117,13 @@
 			packageProductDependencies = (
 				467E5C8C2DDDF171001B9048 /* RealmSwift */,
 				467E5C8F2DDDF17C001B9048 /* SwiftyStoreKit */,
-				467E5C922DDDF186001B9048 /* SVProgressHUD */,
 				467E5C952DDDF1A7001B9048 /* UICircularProgressRing */,
 				467E5C982DDDF1B8001B9048 /* ApphudSDK */,
 				467E5D3C2DDFC9D1001B9048 /* Pulsator */,
 				4607BB5D2DE8DEE800FB53D1 /* DGCharts */,
 				4677EB4A2DF302EF007B74A7 /* AppsFlyerLib */,
 				46E1A5A02DFC474F001268DC /* Crypto */,
+				46442C912E02F4DF00BEC27E /* IMProgressHUD */,
 			);
 			productName = cl.heart;
 			productReference = 467E5C6D2DDDF05F001B9048 /* cl.heart.app */;
@@ -157,13 +157,13 @@
 			packageReferences = (
 				467E5C8B2DDDF171001B9048 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				467E5C8E2DDDF17C001B9048 /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
-				467E5C912DDDF186001B9048 /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
 				467E5C942DDDF1A7001B9048 /* XCRemoteSwiftPackageReference "UICircularProgressRing" */,
 				467E5C972DDDF1B8001B9048 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
 				467E5D3B2DDFC9D1001B9048 /* XCRemoteSwiftPackageReference "Pulsator" */,
 				4607BB5C2DE8DEE800FB53D1 /* XCRemoteSwiftPackageReference "Charts" */,
 				4677EB492DF302EF007B74A7 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
 				46E1A59F2DFC474F001268DC /* XCRemoteSwiftPackageReference "swift-crypto" */,
+				46442C902E02F4DF00BEC27E /* XCRemoteSwiftPackageReference "IMProgressHUD" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 467E5C6E2DDDF05F001B9048 /* Products */;
@@ -430,6 +430,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		46442C902E02F4DF00BEC27E /* XCRemoteSwiftPackageReference "IMProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/immortal-it/IMProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		4677EB492DF302EF007B74A7 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework";
@@ -452,14 +460,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.16.4;
-			};
-		};
-		467E5C912DDDF186001B9048 /* XCRemoteSwiftPackageReference "SVProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SVProgressHUD/SVProgressHUD";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.1;
 			};
 		};
 		467E5C942DDDF1A7001B9048 /* XCRemoteSwiftPackageReference "UICircularProgressRing" */ = {
@@ -502,6 +502,11 @@
 			package = 4607BB5C2DE8DEE800FB53D1 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
 		};
+		46442C912E02F4DF00BEC27E /* IMProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 46442C902E02F4DF00BEC27E /* XCRemoteSwiftPackageReference "IMProgressHUD" */;
+			productName = IMProgressHUD;
+		};
 		4677EB4A2DF302EF007B74A7 /* AppsFlyerLib */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4677EB492DF302EF007B74A7 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
@@ -516,11 +521,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 467E5C8E2DDDF17C001B9048 /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
 			productName = SwiftyStoreKit;
-		};
-		467E5C922DDDF186001B9048 /* SVProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 467E5C912DDDF186001B9048 /* XCRemoteSwiftPackageReference "SVProgressHUD" */;
-			productName = SVProgressHUD;
 		};
 		467E5C952DDDF1A7001B9048 /* UICircularProgressRing */ = {
 			isa = XCSwiftPackageProductDependency;

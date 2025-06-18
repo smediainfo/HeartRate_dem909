@@ -2,7 +2,7 @@
 import UIKit
 import CryptoKit
 import RealmSwift
-import SVProgressHUD
+import IMProgressHUD
 
 class AIBot: UIViewController {
 
@@ -106,11 +106,11 @@ class AIBot: UIViewController {
             self.sendButton.isHidden = true
             self.textDield.isHidden = true
             self.scrollViewWithMessage.isHidden = false
-            SVProgressHUD.show()
+            IMProgressHUD.show()
             self.questionLabel.text = self.question
             self.answerView.isHidden = true
             sendHeartRequest(prompt: self.question) { text in
-                SVProgressHUD.dismiss()
+                IMProgressHUD.hide()
                 if text.isEmpty {
                     let alert = UIAlertController(title: "Error", message: "Something went wrong, please try again", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
@@ -151,9 +151,9 @@ class AIBot: UIViewController {
              
                 if pulse.ai.isEmpty {
                     let q = "Evaluate the resting heart rate of a user based on the following data:Age: \(Account.m().age), BPM: \(pulse.BPM). Provide health assessment and whether this BPM is considered low, normal, or high for their age."
-                    SVProgressHUD.show()
+                    IMProgressHUD.show()
                     sendHeartRequest(prompt: q) { text in
-                        SVProgressHUD.dismiss()
+                        IMProgressHUD.hide()
                         if text.isEmpty {
                             let alert = UIAlertController(title: "Error", message: "Something went wrong, please try again", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in

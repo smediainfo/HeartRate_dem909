@@ -4,7 +4,7 @@ import AVKit
 import AVFoundation
 import RealmSwift
 import SwiftyStoreKit
-import SVProgressHUD
+import IMProgressHUD
 
 
 class PayOnb: UIViewController {
@@ -123,10 +123,10 @@ class PayOnb: UIViewController {
     }
 
     @IBAction func clickBuy(_ sender: Any) {
-        SVProgressHUD.show()
+        IMProgressHUD.show()
         SwiftyStoreKit.purchaseProduct(self.id, atomically: true) { result in
             DispatchQueue.main.async {
-                SVProgressHUD.dismiss()
+                IMProgressHUD.hide()
                 if case .success(let purchase) = result {
                     
                     if purchase.needsFinishTransaction {
@@ -151,9 +151,9 @@ class PayOnb: UIViewController {
         UIApplication.shared.open(URL(string: "https://drive.google.com/file/d/1vU_A7_nA0ISzHNaqVWBEF0purEbzI3Ve/view")!, options: [:], completionHandler: nil)
     }
     @IBAction func clickRestore(_ sender: Any) {
-        SVProgressHUD.show()
+        IMProgressHUD.show()
         verifyReceipt { result in
-            SVProgressHUD.dismiss()
+            IMProgressHUD.hide()
             switch result {
             case .success(let receipt):
                 var currentId: String = ""

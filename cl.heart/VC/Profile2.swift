@@ -1,7 +1,7 @@
 
 import UIKit
 import RealmSwift
-import SVProgressHUD
+import IMProgressHUD
 
 import SwiftyStoreKit
 
@@ -104,10 +104,10 @@ class Profile2: UIViewController, PayDelegate {
         }
     }
     @IBAction func clickRestore(_ sender: Any) {
-        SVProgressHUD.show()
+        IMProgressHUD.show()
         let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: autosubscribeKey)
         SwiftyStoreKit.verifyReceipt(using: appleValidator, completion: {result in
-            SVProgressHUD.dismiss()
+            IMProgressHUD.hide()
             switch result {
             case .success(let receipt):
                 var currentId: String = ""

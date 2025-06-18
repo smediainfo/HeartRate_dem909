@@ -2,7 +2,7 @@ import UIKit
 import RealmSwift
 import SwiftyStoreKit
 import ApphudSDK
-import SVProgressHUD
+//import SVProgressHUD
 import UserNotifications
 import AppsFlyerLib
 import AppTrackingTransparency
@@ -158,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
 //        
-        SVProgressHUD.setDefaultMaskType(.black)
+//        SVProgressHUD.setDefaultMaskType(.black)
         UNUserNotificationCenter.current().delegate = self
 
 
