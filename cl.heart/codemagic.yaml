@@ -22,19 +22,29 @@ workflows:
           xcodebuild -resolvePackageDependencies \
             -project "$CM_BUILD_DIR/$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME"
-      - name: Set up provisioning profiles settings on Xcode project
-        script: |
-          xcode-project use-profiles --project "$CM_BUILD_DIR/$XCODE_PROJECT"
+#      - name: Set up provisioning profiles settings on Xcode project
+#        script: |
+#          xcode-project use-profiles --project "$CM_BUILD_DIR/$XCODE_PROJECT"
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
       - name: Build ipa for distribution
-        script: |
-          xcode-project build-ipa \
-            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME"
+         script: |
+           xcode-project build-ipa \
+           --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+           --scheme "$XCODE_SCHEME" \
+           --xcargs "
+           CODE_SIGN_STYLE=Manual
+           DEVELOPMENT_TEAM=9P5P38899F
+           PROVISIONING_PROFILE_SPECIFIER='Heart Rate'
+           CODE_SIGN_IDENTITY='Apple Distribution'"
+#      - name: Build ipa for distribution
+#        script: |
+#          xcode-project build-ipa \
+#            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+#            --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
