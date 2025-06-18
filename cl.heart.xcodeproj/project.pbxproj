@@ -1,0 +1,548 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4607BB5E2DE8DEE800FB53D1 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 4607BB5D2DE8DEE800FB53D1 /* DGCharts */; };
+		4677EB4B2DF302EF007B74A7 /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4677EB4A2DF302EF007B74A7 /* AppsFlyerLib */; };
+		467E5C8D2DDDF171001B9048 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8C2DDDF171001B9048 /* RealmSwift */; };
+		467E5C902DDDF17C001B9048 /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8F2DDDF17C001B9048 /* SwiftyStoreKit */; };
+		467E5C932DDDF186001B9048 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C922DDDF186001B9048 /* SVProgressHUD */; };
+		467E5C962DDDF1A7001B9048 /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C952DDDF1A7001B9048 /* UICircularProgressRing */; };
+		467E5C992DDDF1B8001B9048 /* ApphudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C982DDDF1B8001B9048 /* ApphudSDK */; };
+		467E5D242DDE36F4001B9048 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8C2DDDF171001B9048 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		467E5D3D2DDFC9D1001B9048 /* Pulsator in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5D3C2DDFC9D1001B9048 /* Pulsator */; };
+		46E1A5A12DFC474F001268DC /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 46E1A5A02DFC474F001268DC /* Crypto */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		467E5D252DDE36F4001B9048 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				467E5D242DDE36F4001B9048 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		467E5C6D2DDDF05F001B9048 /* cl.heart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cl.heart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		467E5C7F2DDDF061001B9048 /* Exceptions for "cl.heart" folder in "cl.heart" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 467E5C6C2DDDF05F001B9048 /* cl.heart */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		467E5C6F2DDDF05F001B9048 /* cl.heart */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				467E5C7F2DDDF061001B9048 /* Exceptions for "cl.heart" folder in "cl.heart" target */,
+			);
+			path = cl.heart;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		467E5C6A2DDDF05F001B9048 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46E1A5A12DFC474F001268DC /* Crypto in Frameworks */,
+				467E5C932DDDF186001B9048 /* SVProgressHUD in Frameworks */,
+				4677EB4B2DF302EF007B74A7 /* AppsFlyerLib in Frameworks */,
+				467E5C8D2DDDF171001B9048 /* RealmSwift in Frameworks */,
+				467E5C992DDDF1B8001B9048 /* ApphudSDK in Frameworks */,
+				467E5C962DDDF1A7001B9048 /* UICircularProgressRing in Frameworks */,
+				467E5D3D2DDFC9D1001B9048 /* Pulsator in Frameworks */,
+				4607BB5E2DE8DEE800FB53D1 /* DGCharts in Frameworks */,
+				467E5C902DDDF17C001B9048 /* SwiftyStoreKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		467E5C642DDDF05F001B9048 = {
+			isa = PBXGroup;
+			children = (
+				467E5C6F2DDDF05F001B9048 /* cl.heart */,
+				467E5C6E2DDDF05F001B9048 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		467E5C6E2DDDF05F001B9048 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				467E5C6D2DDDF05F001B9048 /* cl.heart.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		467E5C6C2DDDF05F001B9048 /* cl.heart */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 467E5C802DDDF061001B9048 /* Build configuration list for PBXNativeTarget "cl.heart" */;
+			buildPhases = (
+				467E5C692DDDF05F001B9048 /* Sources */,
+				467E5C6A2DDDF05F001B9048 /* Frameworks */,
+				467E5C6B2DDDF05F001B9048 /* Resources */,
+				467E5D252DDE36F4001B9048 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				467E5C6F2DDDF05F001B9048 /* cl.heart */,
+			);
+			name = cl.heart;
+			packageProductDependencies = (
+				467E5C8C2DDDF171001B9048 /* RealmSwift */,
+				467E5C8F2DDDF17C001B9048 /* SwiftyStoreKit */,
+				467E5C922DDDF186001B9048 /* SVProgressHUD */,
+				467E5C952DDDF1A7001B9048 /* UICircularProgressRing */,
+				467E5C982DDDF1B8001B9048 /* ApphudSDK */,
+				467E5D3C2DDFC9D1001B9048 /* Pulsator */,
+				4607BB5D2DE8DEE800FB53D1 /* DGCharts */,
+				4677EB4A2DF302EF007B74A7 /* AppsFlyerLib */,
+				46E1A5A02DFC474F001268DC /* Crypto */,
+			);
+			productName = cl.heart;
+			productReference = 467E5C6D2DDDF05F001B9048 /* cl.heart.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		467E5C652DDDF05F001B9048 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					467E5C6C2DDDF05F001B9048 = {
+						CreatedOnToolsVersion = 16.3;
+						LastSwiftMigration = 1630;
+					};
+				};
+			};
+			buildConfigurationList = 467E5C682DDDF05F001B9048 /* Build configuration list for PBXProject "cl.heart" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 467E5C642DDDF05F001B9048;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				467E5C8B2DDDF171001B9048 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				467E5C8E2DDDF17C001B9048 /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */,
+				467E5C912DDDF186001B9048 /* XCRemoteSwiftPackageReference "SVProgressHUD" */,
+				467E5C942DDDF1A7001B9048 /* XCRemoteSwiftPackageReference "UICircularProgressRing" */,
+				467E5C972DDDF1B8001B9048 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
+				467E5D3B2DDFC9D1001B9048 /* XCRemoteSwiftPackageReference "Pulsator" */,
+				4607BB5C2DE8DEE800FB53D1 /* XCRemoteSwiftPackageReference "Charts" */,
+				4677EB492DF302EF007B74A7 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
+				46E1A59F2DFC474F001268DC /* XCRemoteSwiftPackageReference "swift-crypto" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 467E5C6E2DDDF05F001B9048 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				467E5C6C2DDDF05F001B9048 /* cl.heart */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		467E5C6B2DDDF05F001B9048 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		467E5C692DDDF05F001B9048 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		467E5C812DDDF061001B9048 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = cl.heart/cl.heart.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = cl.heart/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Pulse Monitor";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses your camera and flashlight to monitor heart by fingertip";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Access to heart rate is required to sync with Apple Health.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to measure advertising efficiency.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stress.heartrate.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "cl.heart/detector/cl.heart-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		467E5C822DDDF061001B9048 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = cl.heart/cl.heart.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = cl.heart/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Pulse Monitor";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses your camera and flashlight to monitor heart by fingertip";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Access to heart rate is required to sync with Apple Health.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to measure advertising efficiency.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stress.heartrate.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "cl.heart/detector/cl.heart-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		467E5C832DDDF061001B9048 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8S8V4638L5;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		467E5C842DDDF061001B9048 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8S8V4638L5;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		467E5C682DDDF05F001B9048 /* Build configuration list for PBXProject "cl.heart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467E5C832DDDF061001B9048 /* Debug */,
+				467E5C842DDDF061001B9048 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		467E5C802DDDF061001B9048 /* Build configuration list for PBXNativeTarget "cl.heart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467E5C812DDDF061001B9048 /* Debug */,
+				467E5C822DDDF061001B9048 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4607BB5C2DE8DEE800FB53D1 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+		4677EB492DF302EF007B74A7 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.17.0;
+			};
+		};
+		467E5C8B2DDDF171001B9048 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		467E5C8E2DDDF17C001B9048 /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bizz84/SwiftyStoreKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.16.4;
+			};
+		};
+		467E5C912DDDF186001B9048 /* XCRemoteSwiftPackageReference "SVProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVProgressHUD/SVProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.1;
+			};
+		};
+		467E5C942DDDF1A7001B9048 /* XCRemoteSwiftPackageReference "UICircularProgressRing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/luispadron/UICircularProgressRing";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 6.5.0;
+			};
+		};
+		467E5C972DDDF1B8001B9048 /* XCRemoteSwiftPackageReference "ApphudSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apphud/ApphudSDK";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.6.2;
+			};
+		};
+		467E5D3B2DDFC9D1001B9048 /* XCRemoteSwiftPackageReference "Pulsator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/shu223/Pulsator";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.3;
+			};
+		};
+		46E1A59F2DFC474F001268DC /* XCRemoteSwiftPackageReference "swift-crypto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-crypto.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.12.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4607BB5D2DE8DEE800FB53D1 /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4607BB5C2DE8DEE800FB53D1 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
+		4677EB4A2DF302EF007B74A7 /* AppsFlyerLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4677EB492DF302EF007B74A7 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
+			productName = AppsFlyerLib;
+		};
+		467E5C8C2DDDF171001B9048 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 467E5C8B2DDDF171001B9048 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		467E5C8F2DDDF17C001B9048 /* SwiftyStoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 467E5C8E2DDDF17C001B9048 /* XCRemoteSwiftPackageReference "SwiftyStoreKit" */;
+			productName = SwiftyStoreKit;
+		};
+		467E5C922DDDF186001B9048 /* SVProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 467E5C912DDDF186001B9048 /* XCRemoteSwiftPackageReference "SVProgressHUD" */;
+			productName = SVProgressHUD;
+		};
+		467E5C952DDDF1A7001B9048 /* UICircularProgressRing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 467E5C942DDDF1A7001B9048 /* XCRemoteSwiftPackageReference "UICircularProgressRing" */;
+			productName = UICircularProgressRing;
+		};
+		467E5C982DDDF1B8001B9048 /* ApphudSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 467E5C972DDDF1B8001B9048 /* XCRemoteSwiftPackageReference "ApphudSDK" */;
+			productName = ApphudSDK;
+		};
+		467E5D3C2DDFC9D1001B9048 /* Pulsator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 467E5D3B2DDFC9D1001B9048 /* XCRemoteSwiftPackageReference "Pulsator" */;
+			productName = Pulsator;
+		};
+		46E1A5A02DFC474F001268DC /* Crypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 46E1A59F2DFC474F001268DC /* XCRemoteSwiftPackageReference "swift-crypto" */;
+			productName = Crypto;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 467E5C652DDDF05F001B9048 /* Project object */;
+}

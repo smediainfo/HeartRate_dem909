@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Onboarding" customModule="cl_heart" customModuleProvider="target">
+            <connections>
+                <outlet property="dl" destination="N1k-Yc-zFu" id="wt4-ob-z3p"/>
+                <outlet property="img" destination="TsF-jH-HAX" id="UWC-2l-CfS"/>
+                <outlet property="nextButton" destination="taL-U2-O5u" id="5mg-4l-ZQk"/>
+                <outlet property="pc" destination="vnI-Iq-nqU" id="yGh-4Z-4Rh"/>
+                <outlet property="tl" destination="V9n-dA-KKj" id="pUS-rY-YEh"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onb1" translatesAutoresizingMaskIntoConstraints="NO" id="TsF-jH-HAX">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taL-U2-O5u">
+                    <rect key="frame" x="16" y="716" width="361" height="44"/>
+                    <color key="backgroundColor" name="primary"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="lus-Sd-NQD"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Next">
+                        <color key="titleColor" name="white"/>
+                    </state>
+                    <connections>
+                        <action selector="clickNext:" destination="-1" eventType="touchUpInside" id="1aJ-Wo-MrS"/>
+                    </connections>
+                </button>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="vnI-Iq-nqU">
+                    <rect key="frame" x="160" y="674" width="73" height="26"/>
+                    <color key="pageIndicatorTintColor" name="gray"/>
+                    <color key="currentPageIndicatorTintColor" name="white"/>
+                </pageControl>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Узнайте, как бьётся ваше сердце прямо сейчас и начните путь к лучшей форме." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N1k-Yc-zFu">
+                    <rect key="frame" x="16" y="613.33333333333337" width="361" height="40.666666666666629"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" name="white"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Узнайте, как бьётся ваше сердце прямо сейчас и начните путь к лучшей форме." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9n-dA-KKj">
+                    <rect key="frame" x="16" y="564.66666666666663" width="361" height="40.666666666666629"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" name="white"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="V9n-dA-KKj" secondAttribute="trailing" constant="16" id="4yf-la-9Eg"/>
+                <constraint firstItem="vnI-Iq-nqU" firstAttribute="top" secondItem="N1k-Yc-zFu" secondAttribute="bottom" constant="20" id="9oP-Sk-ufd"/>
+                <constraint firstItem="V9n-dA-KKj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="DO7-R7-9yk"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="taL-U2-O5u" secondAttribute="trailing" constant="16" id="DjS-yO-uoX"/>
+                <constraint firstAttribute="trailing" secondItem="TsF-jH-HAX" secondAttribute="trailing" id="M6S-qJ-r3o"/>
+                <constraint firstItem="N1k-Yc-zFu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="NDh-Ub-erq"/>
+                <constraint firstItem="taL-U2-O5u" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Sam-St-YPR"/>
+                <constraint firstItem="taL-U2-O5u" firstAttribute="top" secondItem="vnI-Iq-nqU" secondAttribute="bottom" constant="16" id="Uuk-Xv-DnT"/>
+                <constraint firstAttribute="bottom" secondItem="TsF-jH-HAX" secondAttribute="bottom" id="dLk-A3-GYD"/>
+                <constraint firstItem="N1k-Yc-zFu" firstAttribute="top" secondItem="V9n-dA-KKj" secondAttribute="bottom" constant="8" id="hXy-wu-ekU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="N1k-Yc-zFu" secondAttribute="trailing" constant="16" id="miN-qC-uVp"/>
+                <constraint firstItem="TsF-jH-HAX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="oOW-Mf-gMa"/>
+                <constraint firstItem="TsF-jH-HAX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wpy-le-xvS"/>
+                <constraint firstItem="vnI-Iq-nqU" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="xE2-Ti-J5g"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="taL-U2-O5u" secondAttribute="bottom" constant="24" id="xbt-rI-c0W"/>
+            </constraints>
+            <point key="canvasLocation" x="6.8702290076335872" y="20.422535211267608"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="onb1" width="375" height="812"/>
+        <namedColor name="gray">
+            <color red="0.68627450980000004" green="0.67843137249999996" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.76862745099999996" green="0.031372549020000001" blue="0.074509803920000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="white">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

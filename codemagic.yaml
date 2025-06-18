@@ -1,0 +1,40 @@
+workflows:
+  ios-uikit-build:
+    name: Build iOS UIKit App
+    environment:
+      xcode: latest
+      vars:
+        APP_SCHEME: "cl.heart"
+        APP_PROJECT: "cl.heart.xcodeproj"
+    scripts:
+      - name: Install dependencies
+        script: |
+          echo "No dependencies to install for UIKit"
+
+      - name: Build iOS .ipa
+        script: |
+          xcodebuild clean \
+            -project "$APP_PROJECT" \
+            -scheme "$APP_SCHEME" \
+            -configuration Release
+
+          xcodebuild archive \
+            -project "$APP_PROJECT" \
+            -scheme "$APP_SCHEME" \
+            -archivePath $CM_BUILD_DIR/$APP_SCHEME.xcarchive \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGN_IDENTITY="Apple Distribution"
+
+          xcodebuild -exportArchive \
+            -archivePath $CM_BUILD_DIR/$APP_SCHEME.xcarchive \
+            -exportOptionsPlist exportOptions.plist \
+            -exportPath $CM_BUILD_DIR/export
+
+    artifacts:
+      - $CM_BUILD_DIR/export/*.ipa
+
+    publishing:
+      email:
+        recipients:
+          - your@email.com
