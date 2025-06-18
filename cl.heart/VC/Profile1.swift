@@ -1,6 +1,6 @@
 
 import UIKit
-import HealthKit
+//import HealthKit
 
 
 class Profile1: UIViewController {
@@ -14,7 +14,7 @@ class Profile1: UIViewController {
     @IBOutlet weak var sv1: UIStackView!
     @IBOutlet weak var titleL: UILabel!
     
-    let healthStore = HKHealthStore()
+//    let healthStore = HKHealthStore()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,12 +46,12 @@ class Profile1: UIViewController {
         self.navigationController?.setViewControllers([vc], animated: false)
     }
     @IBAction func clickSync(_ sender: Any) {
-        syncHeartRateFromHealthKit { samples in
-            guard let samples = samples, let last = samples.first else { return }
-
-            let bpm = last.quantity.doubleValue(for: HKUnit(from: "count/min"))
-            print("❤️ Последний пульс: \(bpm) BPM")
-        }
+//        syncHeartRateFromHealthKit { samples in
+//            guard let samples = samples, let last = samples.first else { return }
+//
+//            let bpm = last.quantity.doubleValue(for: HKUnit(from: "count/min"))
+//            print("❤️ Последний пульс: \(bpm) BPM")
+//        }
     }
     @IBAction func clickRate(_ sender: Any) {
         UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/viewContentsUserReviews?id=\(appleId)")!, options: [:], completionHandler: nil)
@@ -83,46 +83,46 @@ class Profile1: UIViewController {
     }
     
     
-    func syncHeartRateFromHealthKit(completion: @escaping ([HKQuantitySample]?) -> Void) {
-        guard HKHealthStore.isHealthDataAvailable() else {
-            print("❌ HealthKit недоступен на этом устройстве")
-            completion(nil)
-            return
-        }
-
-        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
-
-        // Запрос разрешений
-        healthStore.requestAuthorization(toShare: nil, read: [heartRateType]) { success, error in
-            if success {
-                let now = Date()
-                let startDate = Calendar.current.date(byAdding: .day, value: -1, to: now)!
-
-                let predicate = HKQuery.predicateForSamples(withStart: startDate, end: now, options: .strictEndDate)
-
-                let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-
-                let query = HKSampleQuery(sampleType: heartRateType,
-                                          predicate: predicate,
-                                          limit: 100,
-                                          sortDescriptors: [sortDescriptor]) { (_, samples, error) in
-
-                    guard let samples = samples as? [HKQuantitySample], error == nil else {
-                        print("❌ Ошибка получения пульса: \(error?.localizedDescription ?? "Неизвестно")")
-                        completion(nil)
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        completion(samples)
-                    }
-                }
-
-                self.healthStore.execute(query)
-            } else {
-                print("❌ Доступ к HealthKit не разрешён: \(error?.localizedDescription ?? "Неизвестно")")
-                completion(nil)
-            }
-        }
-    }
+//    func syncHeartRateFromHealthKit(completion: @escaping ([HKQuantitySample]?) -> Void) {
+//        guard HKHealthStore.isHealthDataAvailable() else {
+//            print("❌ HealthKit недоступен на этом устройстве")
+//            completion(nil)
+//            return
+//        }
+//
+//        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+//
+//        // Запрос разрешений
+//        healthStore.requestAuthorization(toShare: nil, read: [heartRateType]) { success, error in
+//            if success {
+//                let now = Date()
+//                let startDate = Calendar.current.date(byAdding: .day, value: -1, to: now)!
+//
+//                let predicate = HKQuery.predicateForSamples(withStart: startDate, end: now, options: .strictEndDate)
+//
+//                let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+//
+//                let query = HKSampleQuery(sampleType: heartRateType,
+//                                          predicate: predicate,
+//                                          limit: 100,
+//                                          sortDescriptors: [sortDescriptor]) { (_, samples, error) in
+//
+//                    guard let samples = samples as? [HKQuantitySample], error == nil else {
+//                        print("❌ Ошибка получения пульса: \(error?.localizedDescription ?? "Неизвестно")")
+//                        completion(nil)
+//                        return
+//                    }
+//
+//                    DispatchQueue.main.async {
+//                        completion(samples)
+//                    }
+//                }
+//
+//                self.healthStore.execute(query)
+//            } else {
+//                print("❌ Доступ к HealthKit не разрешён: \(error?.localizedDescription ?? "Неизвестно")")
+//                completion(nil)
+//            }
+//        }
+//    }
 }
