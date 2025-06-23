@@ -61,7 +61,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBq-dY-6tc">
                             <rect key="frame" x="240.66666666666671" y="0.0" width="120.33333333333334" height="30"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Private Privacy">
+                            <state key="normal" title="Privacy Policy">
                                 <color key="titleColor" name="white"/>
                             </state>
                             <connections>

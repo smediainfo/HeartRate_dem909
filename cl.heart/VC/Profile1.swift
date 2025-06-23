@@ -5,6 +5,8 @@ import UIKit
 
 class Profile1: UIViewController {
 
+    @IBOutlet weak var privateLabel: UILabel!
+    @IBOutlet weak var termsLabel: UILabel!
     @IBOutlet weak var syncLabel: UILabel!
     @IBOutlet weak var userProfileLabel: UILabel!
     @IBOutlet weak var settingLabel: UILabel!
@@ -24,7 +26,8 @@ class Profile1: UIViewController {
         shareLabel.font = Font.semibold(size: 14)
         userProfileLabel.font = Font.semibold(size: 14)
         syncLabel.font = Font.semibold(size: 14)
-        
+        privateLabel.font = Font.semibold(size: 14)
+        termsLabel.font = Font.semibold(size: 14)
         
         
         for v in sv1.arrangedSubviews {
@@ -55,6 +58,11 @@ class Profile1: UIViewController {
     }
     @IBAction func clickRate(_ sender: Any) {
         UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/viewContentsUserReviews?id=\(appleId)")!, options: [:], completionHandler: nil)
+    }
+    
+    @IBAction func clickTerms(_ sender: Any) {
+    }
+    @IBAction func clickPrivate(_ sender: Any) {
     }
     
     @IBAction func clickShare(_ sender: Any) {

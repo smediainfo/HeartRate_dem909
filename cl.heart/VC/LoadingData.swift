@@ -15,6 +15,7 @@ class LoadingData: UIViewController {
             for p in placements {
                 if let paywall = p.paywall {
                     if let product = paywall.products.first {
+                        print(product.productId)
                         subsList.append(product.productId)
                         if paywall.identifier == "BestOnboardingPaywall" {
                             onbID = product.productId

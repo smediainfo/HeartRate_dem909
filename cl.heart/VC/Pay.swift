@@ -39,7 +39,6 @@ class Pay: UIViewController {
         autoLabel.font = Font.regular(size: 10)
         autoLabel.text = "Auto-renewing weekly subscription for \(subsListMoney[self.id] ?? "-") until cancelled"
         
-        
         if (subsListInfo[id]?.subscriptionPeriod?.numberOfUnits ?? 0) > 0 {
             let fullText = "3 Days Free, then \(subsListMoney[self.id] ?? "-")/week"
             let attributed = NSMutableAttributedString(string: fullText)
@@ -78,6 +77,7 @@ class Pay: UIViewController {
                 .foregroundColor: #colorLiteral(red: 0.04705882353, green: 0.04705882353, blue: 0.04705882353, alpha: 1)
             ]
 
+            
             if let range2 = fullText.range(of: "\(subsListMoney[self.id] ?? "-")/week") {
                 let nsRange2 = NSRange(range2, in: fullText)
                 attributed.setAttributes(normalGrayAttrs, range: nsRange2)

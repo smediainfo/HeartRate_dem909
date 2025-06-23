@@ -32,10 +32,12 @@ class PayOnb: UIViewController {
         buyButton.clipsToBounds = true
         buyButton.layer.cornerRadius = 8
         autoLabel.font = Font.regular(size: 10)
+        
         autoLabel.text = "Auto-renewing weekly subscription for \(subsListMoney[self.id] ?? "-") until cancelled"
         moneyL.font = Font.medium(size: 13)
         
         if (subsListInfo[id]?.subscriptionPeriod?.numberOfUnits ?? 0) > 0 {
+        
             let fullText = "3 Days Free, then \(subsListMoney[self.id] ?? "-")/week"
             let attributed = NSMutableAttributedString(string: fullText)
             
