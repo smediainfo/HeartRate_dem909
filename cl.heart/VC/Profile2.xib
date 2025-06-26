@@ -19,13 +19,16 @@
                 <outlet property="nameTextField" destination="e7U-hP-Ssh" id="Zuu-4x-XDs"/>
                 <outlet property="profileSettings" destination="qRI-hi-wpL" id="7Mc-aY-x6g"/>
                 <outlet property="restoreL" destination="5ui-lf-iag" id="gZt-Ki-oS8"/>
-                <outlet property="subL" destination="tin-B1-0pI" id="3ci-wd-8ts"/>
+                <outlet property="restoreView" destination="czX-Kj-XSw" id="23e-J6-Eis"/>
+                <outlet property="subL" destination="tin-B1-0pI" id="FoF-zz-Cs9"/>
+                <outlet property="subRight" destination="d8L-0O-He5" id="HqJ-sO-wTe"/>
                 <outlet property="sv1" destination="He0-ko-5XJ" id="IdY-Bi-Bqi"/>
                 <outlet property="sv2" destination="A4k-7Y-M5Q" id="tmZ-kP-tk6"/>
                 <outlet property="titleL" destination="5fY-Zd-kDg" id="HV8-I5-5zI"/>
                 <outlet property="unitL" destination="6bp-jd-4sd" id="cFX-v6-wtb"/>
                 <outlet property="unitSegment" destination="zpo-AD-8Nk" id="7hm-pM-TBT"/>
                 <outlet property="view" destination="9Yl-d2-St6" id="SRb-Q2-d6r"/>
+                <outlet property="youHaveSub" destination="v7B-on-N41" id="f0U-cV-Eum"/>
                 <outlet property="yourSexL" destination="u7J-W8-Os9" id="Mh1-d0-nGu"/>
             </connections>
         </placeholder>
@@ -95,6 +98,12 @@
                                     <color key="textColor" name="textPrimary"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have Premium subscriprtions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7B-on-N41">
+                                    <rect key="frame" x="12" y="0.0" width="337" height="44"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" name="textPrimary"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FREE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4k-U1-hlI">
                                     <rect key="frame" x="118.00000000000001" y="11.999999999999998" width="39.666666666666671" height="20.333333333333329"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -120,16 +129,20 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="v7B-on-N41" firstAttribute="top" secondItem="UIx-m2-2Os" secondAttribute="top" id="3Ty-gA-VUt"/>
                                 <constraint firstItem="Q4k-U1-hlI" firstAttribute="leading" secondItem="tin-B1-0pI" secondAttribute="trailing" constant="6" id="5Oj-2P-niE"/>
                                 <constraint firstAttribute="bottom" secondItem="Acg-Vr-DEN" secondAttribute="bottom" id="FZR-sS-tPG"/>
                                 <constraint firstItem="tin-B1-0pI" firstAttribute="centerY" secondItem="UIx-m2-2Os" secondAttribute="centerY" id="Jim-7P-kw9"/>
+                                <constraint firstAttribute="bottom" secondItem="v7B-on-N41" secondAttribute="bottom" id="LnH-wU-CuF"/>
                                 <constraint firstItem="Acg-Vr-DEN" firstAttribute="leading" secondItem="UIx-m2-2Os" secondAttribute="leading" id="MAz-kB-bxI"/>
+                                <constraint firstItem="v7B-on-N41" firstAttribute="leading" secondItem="UIx-m2-2Os" secondAttribute="leading" constant="12" id="QrN-qV-5r7"/>
                                 <constraint firstItem="Acg-Vr-DEN" firstAttribute="top" secondItem="UIx-m2-2Os" secondAttribute="top" id="RAn-Rx-BuB"/>
                                 <constraint firstAttribute="trailing" secondItem="d8L-0O-He5" secondAttribute="trailing" constant="16" id="RfP-QN-JVo"/>
                                 <constraint firstItem="d8L-0O-He5" firstAttribute="centerY" secondItem="UIx-m2-2Os" secondAttribute="centerY" id="SZk-8j-Zkb"/>
                                 <constraint firstItem="Q4k-U1-hlI" firstAttribute="centerY" secondItem="tin-B1-0pI" secondAttribute="centerY" id="au9-7I-pNA"/>
                                 <constraint firstItem="tin-B1-0pI" firstAttribute="leading" secondItem="UIx-m2-2Os" secondAttribute="leading" constant="16" id="dxP-qr-lbM"/>
                                 <constraint firstAttribute="trailing" secondItem="Acg-Vr-DEN" secondAttribute="trailing" id="gmd-Dh-4rr"/>
+                                <constraint firstAttribute="trailing" secondItem="v7B-on-N41" secondAttribute="trailing" constant="12" id="jDU-hG-7TS"/>
                                 <constraint firstAttribute="height" constant="44" id="p0b-ki-S81"/>
                             </constraints>
                         </view>
@@ -361,7 +374,7 @@
             <color red="0.0" green="0.0078431372549019607" blue="0.074509803921568626" alpha="0.10000000149011612" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textPrimary">
-            <color red="0.093999996781349182" green="0.086000002920627594" blue="0.097999997437000275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.090196078431372548" green="0.082352941176470587" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textSecondary">
             <color red="0.396078431372549" green="0.45882352941176469" blue="0.54509803921568623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

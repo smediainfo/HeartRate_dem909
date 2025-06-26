@@ -11,6 +11,7 @@ class Profile2: UIViewController, PayDelegate {
     }
     
 
+    @IBOutlet weak var youHaveSub: UILabel!
     @IBOutlet weak var unitSegment: UISegmentedControl!
     @IBOutlet weak var mfSegment: UISegmentedControl!
     @IBOutlet weak var unitL: UILabel!
@@ -38,7 +39,8 @@ class Profile2: UIViewController, PayDelegate {
         ageL.font = Font.semibold(size: 14)
         yourSexL.font = Font.semibold(size: 14)
         unitL.font = Font.semibold(size: 14)
-        
+        youHaveSub.font = Font.semibold(size: 14)
+        youHaveSub.adjustsFontSizeToFitWidth = true
         
         for v in sv1.arrangedSubviews {
             v.clipsToBounds = true
@@ -80,12 +82,21 @@ class Profile2: UIViewController, PayDelegate {
         upd()
         
     }
+    
+    @IBOutlet weak var restoreView: UIView!
+    @IBOutlet weak var subRight: UIImageView!
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
     func upd() {
-        freeL.text = Account.m().isPro ? "PRO" : "FREE"
+        restoreView.isHidden = Account.m().isPro
+        subL.isHidden = Account.m().isPro
+        subRight.isHidden = Account.m().isPro
+        freeL.isHidden = Account.m().isPro
+        youHaveSub.isHidden = !Account.m().isPro
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
