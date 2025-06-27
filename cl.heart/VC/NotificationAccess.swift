@@ -49,7 +49,7 @@ class NotificationAccess: UIViewController {
     }
     @IBAction func clickNext(_ sender: Any) {
         UIApplication.shared.registerForRemoteNotifications()
-        let vc = PayOnb()
+        let vc = Info1()
         self.navigationController?.setViewControllers([vc], animated: true)
     }
     

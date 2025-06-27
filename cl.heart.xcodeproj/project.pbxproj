@@ -210,7 +210,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = cl.heart/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Pulses Monitor";
+				INFOPLIST_KEY_CFBundleDisplayName = "Heart Rate";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses your camera and flashlight to monitor heart by fingertip";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to measure advertising efficiency.";
@@ -253,7 +253,7 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = cl.heart/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Pulses Monitor";
+				INFOPLIST_KEY_CFBundleDisplayName = "Heart Rate";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses your camera and flashlight to monitor heart by fingertip";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to measure advertising efficiency.";

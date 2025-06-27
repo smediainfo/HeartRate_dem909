@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Info1" customModule="cl_heart" customModuleProvider="target">
+            <connections>
+                <outlet property="saveButton" destination="HRe-WU-91i" id="wKY-nV-pOW"/>
+                <outlet property="textL" destination="udZ-I8-xqQ" id="UhU-UC-9ad"/>
+                <outlet property="titleL" destination="3qL-xT-0v0" id="dGm-2X-57J"/>
+                <outlet property="tl" destination="hf3-C8-kCK" id="B0t-GO-Exh"/>
+                <outlet property="view" destination="Hsu-RN-oTq" id="S0o-C5-dpe"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Hsu-RN-oTq">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ZwQ-9v-Tg7">
+                    <rect key="frame" x="16" y="716" width="361" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRe-WU-91i">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
+                            <color key="backgroundColor" name="primary"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="Mpf-QQ-xUG"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="CONTINUE">
+                                <color key="titleColor" name="white"/>
+                            </state>
+                            <connections>
+                                <action selector="clickNext:" destination="-1" eventType="touchUpInside" id="XKd-xY-ipq"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="Xlu-lz-7pD">
+                    <rect key="frame" x="16" y="261.33333333333337" width="361" height="259.33333333333337"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Heart Rate - Stress Monitor" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hf3-C8-kCK">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" name="textPrimary"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GwO-pY-bVP">
+                            <rect key="frame" x="0.0" y="44.333333333333371" width="361" height="215"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rF4-9W-9Dr">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="215"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disclaimer" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qL-xT-0v0">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" name="textPrimary"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udZ-I8-xqQ">
+                                            <rect key="frame" x="0.0" y="32.333333333333314" width="361" height="182.66666666666666"/>
+                                            <string key="text">Our Heart Rate  provides wellness insights based on your heart rate and lifestyle patterns. It is not a medical device and does not offer medical advice, diagnosis, or treatment.
+
+If you have health concerns or symptoms, please consult a qualified healthcare professional. Heartify is not a substitute for medical care.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" name="textPrimary"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="udZ-I8-xqQ" secondAttribute="bottom" id="Foa-zE-dyK"/>
+                                        <constraint firstItem="udZ-I8-xqQ" firstAttribute="top" secondItem="3qL-xT-0v0" secondAttribute="bottom" constant="12" id="QTG-4b-EYc"/>
+                                        <constraint firstItem="3qL-xT-0v0" firstAttribute="top" secondItem="rF4-9W-9Dr" secondAttribute="top" id="YJI-ef-clg"/>
+                                        <constraint firstAttribute="trailing" secondItem="udZ-I8-xqQ" secondAttribute="trailing" id="dWq-km-CV7"/>
+                                        <constraint firstItem="3qL-xT-0v0" firstAttribute="leading" secondItem="rF4-9W-9Dr" secondAttribute="leading" id="quw-FI-o0V"/>
+                                        <constraint firstAttribute="trailing" secondItem="3qL-xT-0v0" secondAttribute="trailing" id="sZU-eK-wbT"/>
+                                        <constraint firstItem="udZ-I8-xqQ" firstAttribute="leading" secondItem="rF4-9W-9Dr" secondAttribute="leading" id="stj-ri-iHd"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_logo" translatesAutoresizingMaskIntoConstraints="NO" id="vne-Tv-ZQH">
+                    <rect key="frame" x="136.66666666666666" y="125.33333333333331" width="119.99999999999997" height="120"/>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="NJK-qf-UgY"/>
+            <color key="backgroundColor" name="bg"/>
+            <constraints>
+                <constraint firstItem="NJK-qf-UgY" firstAttribute="bottom" secondItem="ZwQ-9v-Tg7" secondAttribute="bottom" constant="24" id="9li-ng-4Da"/>
+                <constraint firstItem="Xlu-lz-7pD" firstAttribute="centerY" secondItem="NJK-qf-UgY" secondAttribute="centerY" constant="-60" id="C90-0A-1aa"/>
+                <constraint firstItem="NJK-qf-UgY" firstAttribute="trailing" secondItem="Xlu-lz-7pD" secondAttribute="trailing" constant="16" id="ITT-Mz-607"/>
+                <constraint firstItem="NJK-qf-UgY" firstAttribute="trailing" secondItem="ZwQ-9v-Tg7" secondAttribute="trailing" constant="16" id="NFm-TO-muH"/>
+                <constraint firstItem="Xlu-lz-7pD" firstAttribute="top" secondItem="vne-Tv-ZQH" secondAttribute="bottom" constant="16" id="XqE-Jx-4U9"/>
+                <constraint firstItem="ZwQ-9v-Tg7" firstAttribute="leading" secondItem="NJK-qf-UgY" secondAttribute="leading" constant="16" id="fz2-0T-M5Q"/>
+                <constraint firstItem="vne-Tv-ZQH" firstAttribute="centerX" secondItem="NJK-qf-UgY" secondAttribute="centerX" id="uTb-Ha-pK2"/>
+                <constraint firstItem="Xlu-lz-7pD" firstAttribute="leading" secondItem="NJK-qf-UgY" secondAttribute="leading" constant="16" id="v7L-67-0Hj"/>
+            </constraints>
+            <point key="canvasLocation" x="6.8702290076335872" y="20.422535211267608"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="loading_logo" width="120" height="120"/>
+        <namedColor name="bg">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.76899999380111694" green="0.030999999493360519" blue="0.075000002980232239" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textPrimary">
+            <color red="0.090196078431372548" green="0.082352941176470587" blue="0.094117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="white">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

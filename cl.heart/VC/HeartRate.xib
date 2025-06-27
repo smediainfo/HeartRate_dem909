@@ -162,12 +162,28 @@
                         </label>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7X-r3-FwD">
+                    <rect key="frame" x="16" y="124" width="32" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="QIk-DG-YKF"/>
+                        <constraint firstAttribute="width" constant="32" id="yQh-sI-sfx"/>
+                    </constraints>
+                    <color key="tintColor" name="textPrimary"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="info.circle" catalog="system">
+                        <color key="titleColor" name="textPrimary"/>
+                    </state>
+                    <connections>
+                        <action selector="clickInfo:" destination="-1" eventType="touchUpInside" id="kkA-fV-7gA"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="MGV-Wh-07e"/>
             <color key="backgroundColor" name="bg"/>
             <constraints>
                 <constraint firstItem="ZPT-Kk-EHb" firstAttribute="centerY" secondItem="z2E-UN-ppk" secondAttribute="centerY" id="8cW-hT-MhD"/>
                 <constraint firstItem="81L-il-2lp" firstAttribute="top" secondItem="Y2m-tc-9gg" secondAttribute="bottom" constant="48" id="8se-Je-kd8"/>
+                <constraint firstItem="M7X-r3-FwD" firstAttribute="leading" secondItem="MGV-Wh-07e" secondAttribute="leading" constant="16" id="Ctv-QO-uhG"/>
                 <constraint firstItem="MGV-Wh-07e" firstAttribute="trailing" secondItem="zkt-nS-o0z" secondAttribute="trailing" id="ESr-3D-xrc"/>
                 <constraint firstItem="z2E-UN-ppk" firstAttribute="centerX" secondItem="Y2m-tc-9gg" secondAttribute="centerX" id="EVS-ga-bGx"/>
                 <constraint firstItem="gcP-XK-IJp" firstAttribute="centerX" secondItem="81L-il-2lp" secondAttribute="centerX" id="IXk-7c-MRx"/>
@@ -178,6 +194,7 @@
                 <constraint firstItem="dyh-0U-GRd" firstAttribute="top" secondItem="Y2m-tc-9gg" secondAttribute="bottom" constant="12" id="W24-mU-3NK"/>
                 <constraint firstItem="Y2m-tc-9gg" firstAttribute="top" secondItem="zkt-nS-o0z" secondAttribute="bottom" constant="42" id="X6N-lX-vcx"/>
                 <constraint firstItem="3kC-dd-hjd" firstAttribute="leading" secondItem="MGV-Wh-07e" secondAttribute="leading" id="ZKd-oY-BWl"/>
+                <constraint firstItem="M7X-r3-FwD" firstAttribute="centerY" secondItem="Mss-hI-ia2" secondAttribute="centerY" id="cTv-NH-Qhc"/>
                 <constraint firstItem="gcP-XK-IJp" firstAttribute="centerY" secondItem="81L-il-2lp" secondAttribute="centerY" id="cYj-uD-yOS"/>
                 <constraint firstItem="Mss-hI-ia2" firstAttribute="leading" secondItem="MGV-Wh-07e" secondAttribute="leading" id="ddF-NL-WBY"/>
                 <constraint firstItem="Y2m-tc-9gg" firstAttribute="centerX" secondItem="MGV-Wh-07e" secondAttribute="centerX" id="ee8-Mg-H1S"/>
@@ -201,6 +218,7 @@
         <image name="close_button_white" width="32" height="32"/>
         <image name="detecting_finger" width="366" height="420"/>
         <image name="heart" width="176.33332824707031" height="167"/>
+        <image name="info.circle" catalog="system" width="128" height="123"/>
         <namedColor name="bg">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

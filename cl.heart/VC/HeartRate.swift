@@ -132,6 +132,11 @@ class HeartRate: UIViewController, AVCapturePhotoCaptureDelegate, BPMDetectionMa
         self.dismiss(animated: true)
     }
     
+    @IBAction func clickInfo(_ sender: Any) {
+        let vc = Info2()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
     
     
     
