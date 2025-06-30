@@ -26,3 +26,4 @@ class HeartRateError: UIViewController {
         self.dismiss(animated: true)
     }
 }
+

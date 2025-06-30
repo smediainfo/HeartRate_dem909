@@ -39,6 +39,7 @@ class AIBot: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         titleL.font = Font.semibold(size: 18)
         yourRobotL.font = Font.bold(size: 24)
         descL.font = Font.semibold(size: 14)
@@ -106,7 +107,7 @@ class AIBot: UIViewController {
             self.sendButton.isHidden = true
             self.textDield.isHidden = true
             self.scrollViewWithMessage.isHidden = false
-            IMProgressHUD.show()
+            IMProgressHUD.showIndicator(.circle)
             self.questionLabel.text = self.question
             self.answerView.isHidden = true
             sendHeartRequest(prompt: self.question) { text in
@@ -120,7 +121,7 @@ class AIBot: UIViewController {
                     self.present(alert, animated: true)
                 } else {
                     self.answerView.isHidden = false
-                    self.answerLabel.text = text
+                    self.answerLabel.text = "\(text)\n\nThe information is advisory in nature. For any medical advice, it is recommended to consult specialists."
                 }
             }
         }
@@ -151,7 +152,7 @@ class AIBot: UIViewController {
              
                 if pulse.ai.isEmpty {
                     let q = "Evaluate the resting heart rate of a user based on the following data:Age: \(Account.m().age), BPM: \(pulse.BPM). Provide health assessment and whether this BPM is considered low, normal, or high for their age."
-                    IMProgressHUD.show()
+                    IMProgressHUD.showIndicator(.circle)
                     sendHeartRequest(prompt: q) { text in
                         IMProgressHUD.hide()
                         if text.isEmpty {
@@ -163,10 +164,10 @@ class AIBot: UIViewController {
                             self.present(alert, animated: true)
                         } else {
                             self.answerView.isHidden = false
-                            self.answerLabel.text = text
+                            self.answerLabel.text = "\(text)\n\nThe information is advisory in nature. For any medical advice, it is recommended to consult specialists."
                             let realm = try! Realm()
                             try! realm.write {
-                                self.pulse?.ai = text
+                                self.pulse?.ai = "\(text)\n\nThe information is advisory in nature. For any medical advice, it is recommended to consult specialists."
                             }
                         }
                     }
