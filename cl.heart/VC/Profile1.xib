@@ -166,7 +166,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Q5A-JL-fTH">
-                    <rect key="frame" x="16" y="279.33333333333331" width="361" height="212"/>
+                    <rect key="frame" x="16" y="279.33333333333331" width="361" height="156"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HeW-ix-gjI">
                             <rect key="frame" x="0.0" y="0.0" width="361" height="44"/>
@@ -207,8 +207,8 @@
                                 <constraint firstAttribute="trailing" secondItem="N8W-2c-HuN" secondAttribute="trailing" id="uyz-p5-LRp"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YvP-vD-JWX">
-                            <rect key="frame" x="0.0" y="56" width="361" height="44"/>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YvP-vD-JWX">
+                            <rect key="frame" x="0.0" y="50" width="361" height="44"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sync with Apple Watch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyO-F3-bTZ">
                                     <rect key="frame" x="16" y="11.999999999999998" width="175.33333333333334" height="20.333333333333329"/>
@@ -247,7 +247,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bwq-dZ-Epi">
-                            <rect key="frame" x="0.0" y="112" width="361" height="44"/>
+                            <rect key="frame" x="0.0" y="56" width="361" height="44"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Use" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R6z-yV-QAF">
                                     <rect key="frame" x="16" y="11.999999999999998" width="101" height="20.333333333333329"/>
@@ -286,7 +286,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HE-PK-Fb5">
-                            <rect key="frame" x="0.0" y="168" width="361" height="44"/>
+                            <rect key="frame" x="0.0" y="112" width="361" height="44"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLM-vh-WEZ">
                                     <rect key="frame" x="15.999999999999993" y="11.999999999999998" width="105.33333333333331" height="20.333333333333329"/>

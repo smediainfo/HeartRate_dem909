@@ -61,8 +61,10 @@ class Profile1: UIViewController {
     }
     
     @IBAction func clickTerms(_ sender: Any) {
+        UIApplication.shared.open(URL(string: "https://drive.google.com/file/d/1vGGK40wnHJBeyck-6Qw1TTwCcbU10WkF/view")!, options: [:], completionHandler: nil)
     }
     @IBAction func clickPrivate(_ sender: Any) {
+        UIApplication.shared.open(URL(string: "https://drive.google.com/file/d/1vU_A7_nA0ISzHNaqVWBEF0purEbzI3Ve/view")!, options: [:], completionHandler: nil)
     }
     
     @IBAction func clickShare(_ sender: Any) {
