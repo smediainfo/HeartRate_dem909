@@ -6,13 +6,14 @@ import IMProgressHUD
 
 class AIBot: UIViewController {
 
+    @IBOutlet weak var answerText: UITextView!
     @IBOutlet weak var stackViewWithMessages: UIStackView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var textDield: PaddedTextField!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var scrollViewWithMessage: UIScrollView!
     @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var answerLabel: UILabel!
+    
     
     
     //hideWithChat
@@ -39,12 +40,18 @@ class AIBot: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         titleL.font = Font.semibold(size: 18)
         yourRobotL.font = Font.bold(size: 24)
         descL.font = Font.semibold(size: 14)
         questionLabel.font = Font.medium(size: 16)
-        answerLabel.font = Font.medium(size: 16)
+        answerText.font = Font.medium(size: 16)
+        answerText.isEditable = false
+        answerText.isScrollEnabled = false
+        answerText.isSelectable = true
+        answerText.dataDetectorTypes = [.link]
+        answerText.backgroundColor = .clear
+        answerText.textContainerInset = .zero
+        answerText.textContainer.lineFragmentPadding = 0
         
         w.constant = UIScreen.main.bounds.width
         
@@ -121,7 +128,7 @@ class AIBot: UIViewController {
                     self.present(alert, animated: true)
                 } else {
                     self.answerView.isHidden = false
-                    self.answerLabel.text = "\(text)\n\nThe information is advisory in nature. For any medical advice, it is recommended to consult specialists."
+                    self.answerText.text = "\(text)\n\nThe information is advisory in nature. For any medical advice, it is recommended to consult specialists."
                 }
             }
         }
@@ -143,7 +150,7 @@ class AIBot: UIViewController {
                 self.textDield.keyboardType = .numberPad
                 self.questionView.isHidden = true
                 self.answerView.isHidden = false
-                self.answerLabel.text = "Please enter your age so we can better assess your BPM."
+                self.answerText.text = "Please enter your age so we can better assess your BPM."
                 textDield.attributedPlaceholder = NSAttributedString(string: "Enter your age:", attributes: [.font: Font.medium(size: 16), .foregroundColor: UIColor(named: "textSecondary")])
                 textDield.becomeFirstResponder()
             } else {
@@ -164,7 +171,8 @@ class AIBot: UIViewController {
                             self.present(alert, animated: true)
                         } else {
                             self.answerView.isHidden = false
-                            self.answerLabel.text = "\(text)\n\nThe information is advisory in nature. For any medical advice, it is recommended to consult specialists."
+                            
+                            self.answerText.text = "\(text)\n\nThe information is advisory in nature. For any medical advice, it is recommended to consult specialists."
                             let realm = try! Realm()
                             try! realm.write {
                                 self.pulse?.ai = "\(text)\n\nThe information is advisory in nature. For any medical advice, it is recommended to consult specialists."
@@ -173,7 +181,7 @@ class AIBot: UIViewController {
                     }
                 } else {
                     self.answerView.isHidden = false
-                    self.answerLabel.text = pulse.ai
+                    self.answerText.text = pulse.ai
                 }
             }
         }
