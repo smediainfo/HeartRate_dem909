@@ -50,7 +50,7 @@ class HeartRate: UIViewController, AVCapturePhotoCaptureDelegate, BPMDetectionMa
         if UIScreen.main.bounds.height < 670 {
             b.constant = -100
         }
-        
+        Logger.log(name: "measuring_opened")
         heart.isHidden = true
         cameraView.isHidden = true
         ring.isHidden = true
@@ -65,16 +65,6 @@ class HeartRate: UIViewController, AVCapturePhotoCaptureDelegate, BPMDetectionMa
         cameraView.clipsToBounds = true
         cameraView.layer.cornerRadius = 46
   
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
-//            print("ERROR!!!!")
-            self.isStarted = false
-            let vc = HeartRateError()
-            self.navigationController?.pushViewController(vc, animated: false)
-            
-            
-        })
-        
     }
     
     
@@ -129,6 +119,7 @@ class HeartRate: UIViewController, AVCapturePhotoCaptureDelegate, BPMDetectionMa
     
 
     @IBAction func clickClose(_ sender: Any) {
+        Logger.log(name: "measuring_closed")
         self.dismiss(animated: true)
     }
     

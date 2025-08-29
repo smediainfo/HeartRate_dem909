@@ -30,6 +30,7 @@ class Profile1: UIViewController {
         termsLabel.font = Font.semibold(size: 14)
         
         
+        Logger.log(name: "profile_opened")
         for v in sv1.arrangedSubviews {
             v.clipsToBounds = true
             v.layer.cornerRadius = 8
@@ -57,17 +58,21 @@ class Profile1: UIViewController {
 //        }
     }
     @IBAction func clickRate(_ sender: Any) {
+        Logger.log(name: "profile_rate_us_tapped")
         UIApplication.shared.open(URL(string: "itms-apps://itunes.apple.com/app/viewContentsUserReviews?id=\(appleId)")!, options: [:], completionHandler: nil)
     }
     
     @IBAction func clickTerms(_ sender: Any) {
+        Logger.log(name: "profile_terms_of_service_tapped")
         UIApplication.shared.open(URL(string: "https://drive.google.com/file/d/1vGGK40wnHJBeyck-6Qw1TTwCcbU10WkF/view")!, options: [:], completionHandler: nil)
     }
     @IBAction func clickPrivate(_ sender: Any) {
+        Logger.log(name: "profile_privacy_policy_tapped")
         UIApplication.shared.open(URL(string: "https://drive.google.com/file/d/1vU_A7_nA0ISzHNaqVWBEF0purEbzI3Ve/view")!, options: [:], completionHandler: nil)
     }
     
     @IBAction func clickShare(_ sender: Any) {
+        Logger.log(name: "profile_share_tapped")
         let url = "https://apps.apple.com/us/app/heart-rate-pulse-monitor/id6746779084"
         var urlToShare = [Any]()
         urlToShare.append(url)
@@ -80,14 +85,17 @@ class Profile1: UIViewController {
     }
     
     @IBAction func clickAI(_ sender: Any) {
+        Logger.log(name: "profile_closed")
         let vc = AIBot()
         self.navigationController?.setViewControllers([vc], animated: false)
     }
     @IBAction func clickMonitoring(_ sender: Any) {
+        Logger.log(name: "profile_closed")
         let vc = Monitoring()
         self.navigationController?.setViewControllers([vc], animated: false)
     }
     @IBAction func clickIndicators(_ sender: Any) {
+        Logger.log(name: "profile_closed")
         let vc = Indicator()
         self.navigationController?.setViewControllers([vc], animated: false)
     }

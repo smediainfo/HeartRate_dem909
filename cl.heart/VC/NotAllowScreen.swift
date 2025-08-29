@@ -21,6 +21,7 @@ class NotAllowScreen: UIViewController {
 
 
     @IBAction func clickOpenSetting(_ sender: Any) {
+        Logger.log(name: "measuring_link_opened")
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
     }
     @IBAction func clickClose(_ sender: Any) {

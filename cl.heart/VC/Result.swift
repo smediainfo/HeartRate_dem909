@@ -17,6 +17,9 @@ class Result: UIViewController, PayDelegate {
         super.viewDidLoad()
         titleL.font = Font.semibold(size: 18)
         
+        
+        Logger.log(name: "insights_opened")
+        
         tableView.contentInset.top = 8
         tableView.contentInset.bottom = 50
         
@@ -31,6 +34,7 @@ class Result: UIViewController, PayDelegate {
     
 
     @IBAction func clickClose(_ sender: Any) {
+        Logger.log(name: "insights_closed")
         self.dismiss(animated: true)
     }
 }
@@ -45,6 +49,7 @@ extension Result: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IndicatorCell", for: indexPath) as! IndicatorCell
             
             cell.didClickSave = {
+                Logger.log(name: "measuring_record_saved")
                 DispatchQueue.main.async {
                     let realm = try! Realm()
                     try! realm.write {

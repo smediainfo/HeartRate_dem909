@@ -2,6 +2,7 @@
 
 import UIKit
 import AVFoundation
+import RealmSwift
 
 
 protocol MonitoringDelegate: class {
@@ -29,12 +30,22 @@ class Monitoring: UIViewController, MonitoringDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        Logger.log(name: "home_opened")
+        
         img.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(clickStart)))
         titleL.font = Font.semibold(size: 18)
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Logger.log(name: "home_closed")
+    }
+    
     @objc func clickStart() {
+        
+        Logger.log(name: "home_pulse_tapped")
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -53,7 +64,9 @@ class Monitoring: UIViewController, MonitoringDelegate {
             case .notDetermined:
                 AVCaptureDevice.requestAccess(for: .video) { granted in
                     DispatchQueue.main.async {
+                        Logger.log(name: "Camera access granted", params: ["permission":granted ? "true" : "false"])
                         if granted {
+                            
                             let vc = HeartRate()
                             vc.delegate = self
                             let navVC = UINavigationController(rootViewController: vc)

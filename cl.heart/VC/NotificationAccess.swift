@@ -35,11 +35,7 @@ class NotificationAccess: UIViewController {
         if sw.isOn {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
                 DispatchQueue.main.async {
-                    if granted {
-                        
-                    } else {
-                        
-                    }
+                    Logger.log(name: "User notification permission granted", params: ["permission": granted ? "true" : "false" ])
                     UIApplication.shared.registerForRemoteNotifications()
                     let vc = PayOnb()
                     self.navigationController?.setViewControllers([vc], animated: true)

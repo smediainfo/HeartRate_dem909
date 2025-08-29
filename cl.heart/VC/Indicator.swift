@@ -10,7 +10,7 @@ class Indicator: UIViewController {
     var pulses: [Pulse] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        Logger.log(name: "records_opened")
         titleL.font = Font.semibold(size: 18)
         
         let realm = try! Realm()
@@ -25,6 +25,12 @@ class Indicator: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        Logger.log(name: "records_closed")
     }
 
 

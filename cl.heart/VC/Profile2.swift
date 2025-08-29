@@ -108,6 +108,7 @@ class Profile2: UIViewController, PayDelegate {
     
     @IBAction func clickSub(_ sender: Any) {
         if !Account.m().isPro {
+            Logger.log(name: "profile_paywall_pro_tapped")
             let vc = Pay()
             vc.delegate = self
             vc.modalPresentationStyle = .fullScreen

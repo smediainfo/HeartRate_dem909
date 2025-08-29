@@ -5,6 +5,7 @@ import AVFoundation
 import RealmSwift
 import SwiftyStoreKit
 import IMProgressHUD
+import StoreKit
 
 
 class PayOnb: UIViewController {
@@ -124,13 +125,51 @@ class PayOnb: UIViewController {
         player.play()
     }
 
-    @IBAction func clickBuy(_ sender: Any) {
+    
+    
+    
+    private func classifyPurchaseError(_ error: Error) -> (kind: String, ns: NSError) {
+        let ns = error as NSError
+        if ns.domain == SKErrorDomain, let sk = SKError.Code(rawValue: ns.code) {
+            switch sk {
+            case .paymentCancelled:
+                return ("cancelled", ns)
+            case .paymentInvalid, .paymentNotAllowed:
+                // Treat as declined/insufficient funds or payment not permitted
+                return ("declined", ns)
+            default:
+                break
+            }
+        }
+        return ("error", ns)
+    }
+
+    
+    private func presentRetryAlert(message: String) {
+        Logger.log(name: "pop_up_fail_rebuy_open")
+        let ac = UIAlertController(title: "Purchase failed", message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { [weak self] _ in
+            Logger.log(name: "pop_up_fail_rebuy_close")
+            ac.dismiss(animated: true)
+        }))
+        ac.addAction(UIAlertAction(title: "Retry", style: .default, handler: { [weak self] _ in
+            Logger.log(name: "pop_up_fail_rebuy_retry")
+            self?.startPurchase()
+        }))
+        self.present(ac, animated: true, completion: nil)
+    }
+
+
+    private func startPurchase() {
+        Logger.log(name: "purchase_started")
         IMProgressHUD.show()
+        Logger.log(name: "purchase_start")
         SwiftyStoreKit.purchaseProduct(self.id, atomically: true) { result in
             DispatchQueue.main.async {
                 IMProgressHUD.hide()
-                if case .success(let purchase) = result {
-                    
+                switch result {
+                case .success(let purchase):
+                    Logger.log(name: "purchase_completed")
                     if purchase.needsFinishTransaction {
                         SwiftyStoreKit.finishTransaction(purchase.transaction)
                     }
@@ -138,22 +177,76 @@ class PayOnb: UIViewController {
                     try! realm.write {
                         Account.m().isPro = true
                     }
+                    Logger.log(name: "purchase_close")
                     let vc = Monitoring()
                     self.navigationController?.setViewControllers([vc], animated: true)
-                } else {
+                case .error(let error):
+                    let classification = self.classifyPurchaseError(error)
+                    switch classification.kind {
+                    case "cancelled":
+                        Logger.log(name: "purchase_failed")
+                        self.presentRetryAlert(message: "Your payment was declined. Please check your payment method and try again.")
+                    case "declined":
+                        Logger.log(name: "purchase_failed")
+                        self.presentRetryAlert(message: "Your payment was declined. Please check your payment method and try again.")
+                    default:
+                        Logger.log(name: "purchase_failed")
+                        self.presentRetryAlert(message: "Something went wrong. Please try again.")
+                    }
                     let realm = try! Realm()
                     try! realm.write {
                         Account.m().isPro = false
                     }
+                    Logger.log(name: "purchase_close")
+                case .deferred(purchase: _):
+                    Logger.log(name: "purchase_close")
+                    let ac = UIAlertController(title: "Pending approval", message: "Your purchase is pending approval. We will complete it once it is approved.", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(ac, animated: true, completion: nil)
                 }
             }
         }
     }
+    
+    @IBAction func clickBuy(_ sender: Any) {
+        startPurchase()
+//        Logger.log(name: "purchase_started")
+//        IMProgressHUD.show()
+//        Logger.log(name: "purchase_start")
+//        SwiftyStoreKit.purchaseProduct(self.id, atomically: true) { result in
+//            DispatchQueue.main.async {
+//                IMProgressHUD.hide()
+//                
+//                if case .success(let purchase) = result {
+//                    Logger.log(name: "purchase_completed")
+//                    if purchase.needsFinishTransaction {
+//                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+//                    }
+//                    let realm = try! Realm()
+//                    try! realm.write {
+//                        Account.m().isPro = true
+//                    }
+//                    Logger.log(name: "onboarding_passed_free")
+//                    let vc = Monitoring()
+//                    self.navigationController?.setViewControllers([vc], animated: true)
+//                    Logger.log(name: "purchase_close")
+//                } else {
+//                    Logger.log(name: "purchase_failed")
+//                    let realm = try! Realm()
+//                    try! realm.write {
+//                        Account.m().isPro = false
+//                    }
+//                }
+//            }
+//        }
+    }
     @IBAction func clickPrivate(_ sender: Any) {
+        Logger.log(name: "paywall_privacy_tapped")
         UIApplication.shared.open(URL(string: "https://drive.google.com/file/d/1vU_A7_nA0ISzHNaqVWBEF0purEbzI3Ve/view")!, options: [:], completionHandler: nil)
     }
     @IBAction func clickRestore(_ sender: Any) {
         IMProgressHUD.show()
+        Logger.log(name: "restore_started")
         verifyReceipt { result in
             IMProgressHUD.hide()
             switch result {
@@ -184,6 +277,7 @@ class PayOnb: UIViewController {
                     let ac = UIAlertController(title: nil, message: "Your subscription has been successfully restored", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                         DispatchQueue.main.asyncAfter(deadline: .now()+0.1, execute: {
+                            Logger.log(name: "restore_completed")
                             let vc = Monitoring()
                             self.navigationController?.setViewControllers([vc], animated: true)
                         })
@@ -195,10 +289,12 @@ class PayOnb: UIViewController {
                     try! realm.write {
                         Account.m().isPro = false
                     }
+                    Logger.log(name: "restore_failed")
                     let ac = UIAlertController(title: "Sorry", message: "Nothing to restore", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(ac, animated: true, completion: nil)
                 case .notPurchased:
+                    Logger.log(name: "restore_failed")
                     let realm = try! Realm()
                     try! realm.write {
                         Account.m().isPro = false
@@ -208,6 +304,7 @@ class PayOnb: UIViewController {
                     self.present(ac, animated: true, completion: nil)
                 }
             case .error:
+                Logger.log(name: "restore_failed")
                 let ac = UIAlertController(title: "Sorry", message: "Nothing to restore", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(ac, animated: true, completion: nil)
@@ -216,9 +313,11 @@ class PayOnb: UIViewController {
         }
     }
     @IBAction func clickterms(_ sender: Any) {
+        Logger.log(name: "paywall_terms_tapped")
         UIApplication.shared.open(URL(string: "https://drive.google.com/file/d/1vGGK40wnHJBeyck-6Qw1TTwCcbU10WkF/view")!, options: [:], completionHandler: nil)
     }
     @IBAction func clickClose(_ sender: Any) {
+        Logger.log(name: "onboarding_passed")
         let vc = Monitoring()
         self.navigationController?.setViewControllers([vc], animated: true)
     }

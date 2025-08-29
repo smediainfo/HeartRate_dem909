@@ -8,10 +8,48 @@ import AppsFlyerLib
 import AppTrackingTransparency
 import AdSupport
 import StoreKit
+import WatchConnectivity
+import AmplitudeSwift
+
 
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, AppsFlyerLibDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, AppsFlyerLibDelegate, WCSessionDelegate {
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        
+        
+        if let validBPMs = message["DATA"] as? [Double] {
+            
+            guard !validBPMs.isEmpty else {
+                return
+            }
+            
+            let realm = try! Realm()
+            let p = Pulse()
+            p.id = UUID().uuidString
+            p.date_created = Date()
+            for b in validBPMs {
+                p.BPMLit.append(b)
+            }
+            try! realm.write {
+                realm.add(p)
+            }
+        }
+
+    }
+ 
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: (any Error)?) {
+        
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        
+    }
     
     func onConversionDataSuccess(_ conversionInfo: [AnyHashable : Any]) {
         Apphud.setAttribution(data: ApphudAttributionData(rawData: conversionInfo), from: .appsFlyer, identifer: AppsFlyerLib.shared().getAppsFlyerUID(), callback: nil)
@@ -22,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 
     }
+    
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Apphud.submitPushNotificationsToken(token: deviceToken, callback: nil)
@@ -45,7 +84,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         } else {
             
         }
-        completionHandler([])
+        
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner, .list, .sound, .badge])
+        } else {
+            completionHandler([.alert, .sound, .badge])
+        }
+    }
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let handled = Apphud.handlePushNotification(apsInfo: userInfo)
+        completionHandler(handled ? .newData : .noData)
     }
 
     var window: UIWindow?
@@ -54,6 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if #available(iOS 14.5, *) {
             DispatchQueue.main.asyncAfter(deadline: .now()+2.0) {
                 ATTrackingManager.requestTrackingAuthorization { status in
+                    Logger.log(name: status == .authorized ? "ATT success" : "ATT failure")
                     guard status == .authorized else {return}
                     let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
                     Apphud.setDeviceIdentifiers(idfa: idfa, idfv: UIDevice.current.identifierForVendor?.uuidString)
@@ -61,6 +112,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         }
     }
+    
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
@@ -69,6 +123,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Apphud.setDeviceIdentifiers(idfa: nil, idfv: UIDevice.current.identifierForVendor?.uuidString)
         fetchIDFA()
 
+        
+        amplitude = Amplitude(configuration: Configuration(apiKey: "619c7123a5a6dd9f92aeecf4d8ab04d3"))
+        amplitude?.setUserId(userId: Apphud.userID())
+        if let idfv = UIDevice.current.identifierForVendor?.uuidString {
+            amplitude?.setDeviceId(deviceId: idfv)
+        }
+        
+        
+        if WCSession.isSupported() {
+            WCSession.default.delegate = self
+            WCSession.default.activate()
+        }
         
         AppsFlyerLib.shared().appsFlyerDevKey = "ne89GdUxXsG9Jv9WSx6PCX"
         AppsFlyerLib.shared().appleAppID = "id\(appleId)"
@@ -160,7 +226,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        
 //        SVProgressHUD.setDefaultMaskType(.black)
         UNUserNotificationCenter.current().delegate = self
-
+        
 
         let vc = LoadingData()
         let navigationController = UINavigationController(rootViewController: vc)
@@ -173,10 +239,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     
+    
+    
 
 }
 
 
+var amplitude: Amplitude?
 
 var autosubscribeKey = "853608c6634449fa8bc2273dd24f6451"
 var subsListMoney: [String:String] = [:]
@@ -286,5 +355,12 @@ class Pulse: Object {
     
     override static func primaryKey() -> String? {
         return "id"
+    }
+}
+
+
+class Logger {
+    static func log(name: String, params: [String:Any]? = nil) {
+        amplitude?.track(eventType: name, eventProperties: params)
     }
 }

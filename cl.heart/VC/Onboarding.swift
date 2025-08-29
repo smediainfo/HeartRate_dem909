@@ -24,6 +24,13 @@ class Onboarding: UIViewController {
             UIView.transition(with: self.tl, duration: 0.3, options: [.transitionCrossDissolve]) {
                 self.tl.text = self.tText[self.p]
             }
+            if p == 1 {
+                Logger.log(name: "onboarding_1_end")
+                Logger.log(name: "onboarding_2")
+            } else if p == 2 {
+                Logger.log(name: "onboarding_2_end")
+                Logger.log(name: "onboarding_3")
+            }
         }
     }
     
@@ -44,13 +51,14 @@ class Onboarding: UIViewController {
         self.dl.text = self.dText[0]
         self.tl.text = self.tText[0]
         
-        
+        Logger.log(name: "onboarding_1")
         
     }
 
 
     @IBAction func clickNext(_ sender: Any) {
         if p >= 2 {
+            Logger.log(name: "onboarding_3_end")
             let realm = try! Realm()
             try! realm.write {
                 Account.m().onb = false

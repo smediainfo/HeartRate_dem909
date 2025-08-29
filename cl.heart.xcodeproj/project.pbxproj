@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4607BB5E2DE8DEE800FB53D1 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 4607BB5D2DE8DEE800FB53D1 /* DGCharts */; };
 		46442C922E02F4DF00BEC27E /* IMProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 46442C912E02F4DF00BEC27E /* IMProgressHUD */; };
+		4668CF972E6090F0003EC84C /* HeartRate Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4668CF8D2E6090ED003EC84C /* HeartRate Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4677EB4B2DF302EF007B74A7 /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4677EB4A2DF302EF007B74A7 /* AppsFlyerLib */; };
 		467E5C8D2DDDF171001B9048 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8C2DDDF171001B9048 /* RealmSwift */; };
 		467E5C902DDDF17C001B9048 /* SwiftyStoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8F2DDDF17C001B9048 /* SwiftyStoreKit */; };
@@ -17,9 +18,31 @@
 		467E5D242DDE36F4001B9048 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 467E5C8C2DDDF171001B9048 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		467E5D3D2DDFC9D1001B9048 /* Pulsator in Frameworks */ = {isa = PBXBuildFile; productRef = 467E5D3C2DDFC9D1001B9048 /* Pulsator */; };
 		46E1A5A12DFC474F001268DC /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 46E1A5A02DFC474F001268DC /* Crypto */; };
+		46EE22632E61A390007573D3 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 46EE22622E61A390007573D3 /* AmplitudeSwift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4668CF952E6090F0003EC84C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 467E5C652DDDF05F001B9048 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4668CF8C2E6090ED003EC84C;
+			remoteInfo = "HeartRate Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		4668CF982E6090F0003EC84C /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				4668CF972E6090F0003EC84C /* HeartRate Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467E5D252DDE36F4001B9048 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -34,6 +57,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4668CF8D2E6090ED003EC84C /* HeartRate Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HeartRate Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		467E5C6D2DDDF05F001B9048 /* cl.heart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cl.heart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -48,6 +72,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		4668CF8E2E6090ED003EC84C /* HeartRate Watch App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "HeartRate Watch App";
+			sourceTree = "<group>";
+		};
 		467E5C6F2DDDF05F001B9048 /* cl.heart */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -59,6 +88,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4668CF8A2E6090ED003EC84C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467E5C6A2DDDF05F001B9048 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,6 +107,7 @@
 				467E5D3D2DDFC9D1001B9048 /* Pulsator in Frameworks */,
 				4607BB5E2DE8DEE800FB53D1 /* DGCharts in Frameworks */,
 				46442C922E02F4DF00BEC27E /* IMProgressHUD in Frameworks */,
+				46EE22632E61A390007573D3 /* AmplitudeSwift in Frameworks */,
 				467E5C902DDDF17C001B9048 /* SwiftyStoreKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				467E5C6F2DDDF05F001B9048 /* cl.heart */,
+				4668CF8E2E6090ED003EC84C /* HeartRate Watch App */,
 				467E5C6E2DDDF05F001B9048 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				467E5C6D2DDDF05F001B9048 /* cl.heart.app */,
+				4668CF8D2E6090ED003EC84C /* HeartRate Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -97,6 +136,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4668CF8C2E6090ED003EC84C /* HeartRate Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4668CF9B2E6090F0003EC84C /* Build configuration list for PBXNativeTarget "HeartRate Watch App" */;
+			buildPhases = (
+				4668CF892E6090ED003EC84C /* Sources */,
+				4668CF8A2E6090ED003EC84C /* Frameworks */,
+				4668CF8B2E6090ED003EC84C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4668CF8E2E6090ED003EC84C /* HeartRate Watch App */,
+			);
+			name = "HeartRate Watch App";
+			packageProductDependencies = (
+			);
+			productName = "HeartRate Watch App";
+			productReference = 4668CF8D2E6090ED003EC84C /* HeartRate Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 		467E5C6C2DDDF05F001B9048 /* cl.heart */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467E5C802DDDF061001B9048 /* Build configuration list for PBXNativeTarget "cl.heart" */;
@@ -105,10 +166,12 @@
 				467E5C6A2DDDF05F001B9048 /* Frameworks */,
 				467E5C6B2DDDF05F001B9048 /* Resources */,
 				467E5D252DDE36F4001B9048 /* Embed Frameworks */,
+				4668CF982E6090F0003EC84C /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4668CF962E6090F0003EC84C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				467E5C6F2DDDF05F001B9048 /* cl.heart */,
@@ -124,6 +187,7 @@
 				4677EB4A2DF302EF007B74A7 /* AppsFlyerLib */,
 				46E1A5A02DFC474F001268DC /* Crypto */,
 				46442C912E02F4DF00BEC27E /* IMProgressHUD */,
+				46EE22622E61A390007573D3 /* AmplitudeSwift */,
 			);
 			productName = cl.heart;
 			productReference = 467E5C6D2DDDF05F001B9048 /* cl.heart.app */;
@@ -136,9 +200,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
+					4668CF8C2E6090ED003EC84C = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					467E5C6C2DDDF05F001B9048 = {
 						CreatedOnToolsVersion = 16.3;
 						LastSwiftMigration = 1630;
@@ -164,6 +231,7 @@
 				4677EB492DF302EF007B74A7 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
 				46E1A59F2DFC474F001268DC /* XCRemoteSwiftPackageReference "swift-crypto" */,
 				46442C902E02F4DF00BEC27E /* XCRemoteSwiftPackageReference "IMProgressHUD" */,
+				46EE22612E61A390007573D3 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 467E5C6E2DDDF05F001B9048 /* Products */;
@@ -171,11 +239,19 @@
 			projectRoot = "";
 			targets = (
 				467E5C6C2DDDF05F001B9048 /* cl.heart */,
+				4668CF8C2E6090ED003EC84C /* HeartRate Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4668CF8B2E6090ED003EC84C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467E5C6B2DDDF05F001B9048 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,6 +262,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4668CF892E6090ED003EC84C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467E5C692DDDF05F001B9048 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -195,7 +278,83 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4668CF962E6090F0003EC84C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4668CF8C2E6090ED003EC84C /* HeartRate Watch App */;
+			targetProxy = 4668CF952E6090F0003EC84C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		4668CF992E6090F0003EC84C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "HeartRate Watch App/HeartRate Watch App.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = HeartRate;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app reads your heart rate to show measurements and insights.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This app writes workout sessions to enable live heart rate measurements.";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.stress.heartrate.app;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stress.heartrate.app.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Debug;
+		};
+		4668CF9A2E6090F0003EC84C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "HeartRate Watch App/HeartRate Watch App.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = HeartRate;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app reads your heart rate to show measurements and insights.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This app writes workout sessions to enable live heart rate measurements.";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.stress.heartrate.app;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stress.heartrate.app.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Release;
+		};
 		467E5C812DDDF061001B9048 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -206,7 +365,7 @@
 				CODE_SIGN_ENTITLEMENTS = cl.heart/cl.heart.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = cl.heart/Info.plist;
@@ -223,7 +382,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stress.heartrate.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -249,7 +408,7 @@
 				CODE_SIGN_ENTITLEMENTS = cl.heart/cl.heart.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = cl.heart/Info.plist;
@@ -266,7 +425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stress.heartrate.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -405,6 +564,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4668CF9B2E6090F0003EC84C /* Build configuration list for PBXNativeTarget "HeartRate Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4668CF992E6090F0003EC84C /* Debug */,
+				4668CF9A2E6090F0003EC84C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		467E5C682DDDF05F001B9048 /* Build configuration list for PBXProject "cl.heart" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -498,6 +666,14 @@
 				minimumVersion = 3.12.3;
 			};
 		};
+		46EE22612E61A390007573D3 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-Swift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -545,6 +721,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 46E1A59F2DFC474F001268DC /* XCRemoteSwiftPackageReference "swift-crypto" */;
 			productName = Crypto;
+		};
+		46EE22622E61A390007573D3 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 46EE22612E61A390007573D3 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
