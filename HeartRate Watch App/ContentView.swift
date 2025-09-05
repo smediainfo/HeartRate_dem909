@@ -5,15 +5,301 @@ import WatchConnectivity
 import WatchKit
 
 
-struct ContentView: View {
-    var body: some View {
-        StartView()
 
+extension Color {
+    static let petalColor1 = Color(red: 125/255, green: 218/255, blue: 160/255)
+    static let petalColor2 = Color(red: 84/255, green: 161/255, blue: 176/255)
+    static let segmentContainer = Color(red: 20/255, green: 30/255, blue: 53/255) // #141E35
+    static let segmentSelectedBG = Color(red: 12/255, green: 12/255, blue: 12/255) // #0C0C0C
+    static let segmentSelectedText = Color(red: 98/255, green: 138/255, blue: 232/255) // #628AE8
+    static let segmentUnselectedText = Color(red: 148/255, green: 163/255, blue: 184/255) // #94A3B8
+}
+
+extension Animation {
+    static let breathe = Animation.easeInOut(duration: 5.4).repeatForever(autoreverses: true)
+}
+
+
+struct PetalView: View {
+    let width: CGFloat = 93
+    let geo: GeometryProxy
+    let index: Double
+    var isContracted: Bool
+
+    var body: some View {
+        Circle()
+            .fill(LinearGradient(gradient: Gradient(colors: [.petalColor1, .petalColor2]), startPoint: .top, endPoint: .bottom))
+            .frame(width: width, height: width)
+            .position(x: isContracted ? geo.size.width/2 : width/2,
+                      y: isContracted ? geo.size.width/2 : width/2)
+            .opacity(0.7)
+            .blendMode(.plusLighter)
+    }
+}
+
+struct FlowerDimensionView: View {
+    let petalCount: Int
+    var isContracted: Bool
+
+    var body: some View {
+        GeometryReader { geo in
+            ForEach(0..<self.petalCount) { i in
+                PetalView(geo: geo, index: Double(i), isContracted: isContracted)
+                    .rotationEffect(.degrees(Double(i * 60)))
+            }
+        }
+    }
+}
+
+/// Common breathing phases used to sync animation and labels
+enum BreathPhase: String {
+    case inhale, hold, exhale
+}
+
+struct FlowerView: View {
+    let petalCount: Int
+    let inhaleDuration: Double
+    let holdDuration: Double
+    let exhaleDuration: Double
+    let phase: BreathPhase
+
+    @State private var scale: CGFloat = 0.24
+    @State private var rotation: Double = -70
+
+    var body: some View {
+        FlowerDimensionView(petalCount: petalCount, isContracted: false)
+            .scaleEffect(scale)
+            .rotationEffect(.degrees(rotation))
+            .padding()
+            .onAppear { applyPhaseAnimation() }
+            .onChange(of: phase) { _, _ in
+                applyPhaseAnimation()
+            }
+    }
+
+    private func applyPhaseAnimation() {
+        switch phase {
+        case .inhale:
+            withAnimation(.easeInOut(duration: inhaleDuration)) {
+                scale = 1.0
+                rotation = 0
+            }
+        case .hold:
+            // keep current scale; optionally add very small breathing micro-movement if desired
+            break
+        case .exhale:
+            withAnimation(.easeInOut(duration: exhaleDuration)) {
+                scale = 0.24
+                rotation = -70
+            }
+        }
+    }
+}
+
+
+
+
+struct ContentView: View {
+    @State private var tabSelection: Int = 0
+    @State private var crownValue: Double = 0
+
+    var body: some View {
+        TabView(selection: $tabSelection) {
+            StartView()
+                .tag(0)
+            BreatheSetupView(onStart: { duration in
+                
+            })
+            .tag(1)
+        }
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+        // Crown-driven page switch: rotate down to go to Breathe
+//        .digitalCrownRotation($crownValue, from: 0, through: 1, by: 0.05, sensitivity: .low, isContinuous: false, isHapticFeedbackEnabled: true)
+//        .onChange(of: crownValue) { oldVal, newVal in
+//            // simple thresholding to flip pages; reset after switch
+//            if tabSelection == 0 && newVal > 0.6 {
+//                tabSelection = 1
+//                WKInterfaceDevice.current().play(.click)
+//                crownValue = 0
+//            } else if tabSelection == 1 && newVal < 0.4 {
+//                // allow returning back if rotated the other way
+//            }
+//        }
     }
 }
 
 #Preview {
     ContentView()
+}
+
+enum BreatheDuration: Int, CaseIterable, Identifiable {
+    case sec30 = 30
+    case sec60 = 60
+    var id: Int { rawValue }
+    var title: String { rawValue == 30 ? "30s" : "60s" }
+}
+
+struct BreatheSetupView: View {
+    // Selected duration in seconds
+    @State private var selectedSeconds: Int = 30
+    // Navigation to the breathing session
+    @State private var goSession: Bool = false
+
+    /// Keep the signature as before so ContentView compiles, but we handle navigation here
+    let onStart: (Int) -> Void
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 14) {
+                // Center start button
+                Button(action: {
+                    onStart(selectedSeconds)
+                    goSession = true
+                }) {
+                    Text("Start breathe")
+                }
+
+                // Segmented-like 30s / 60s control
+                HStack(spacing: 0) {
+                    SegButton(title: "30s", isSelected: selectedSeconds == 30) {
+                        selectedSeconds = 30
+                    }
+                    SegButton(title: "60s", isSelected: selectedSeconds == 60) {
+                        selectedSeconds = 60
+                    }
+                }
+                .padding(2)
+                .frame(width: 126, height: 40)
+                .background(Color.segmentContainer)
+                .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .padding(.horizontal, 10)
+            .navigationDestination(isPresented: $goSession) {
+                BreatheSessionView(totalSeconds: selectedSeconds)
+            }
+        }
+    }
+}
+
+/// Small helper to mimic a two-segment control on watchOS
+private struct SegButton: View {
+    let title: String
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(isSelected ? .segmentSelectedText : .segmentUnselectedText)
+                .frame(maxWidth: .infinity, minHeight: 36)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .background(isSelected ? Color.segmentSelectedBG : Color.clear)
+        .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+    }
+}
+
+struct BreatheSessionView: View {
+    let totalSeconds: Int
+
+    @State private var elapsed: Int = 0
+    @State private var phase: BreathPhase = .inhale
+    @State private var phaseRemaining: Int = 0
+    @State private var timer: Timer?
+    @State private var finished: Bool = false
+
+    private let cycle: [(BreathPhase, Int)] = [(.inhale, 4), (.hold, 4), (.exhale, 6)] // 14s cycle
+
+    private func duration(for p: BreathPhase) -> Int {
+        cycle.first(where: { $0.0 == p })?.1 ?? 4
+    }
+
+    var body: some View {
+        VStack(spacing: 10) {
+            if finished {
+                Text("Session complete")
+                    .font(.headline)
+                Button("Back to Home") {
+                    // pop back to root of NavigationStack
+                    WKInterfaceDevice.current().play(.success)
+                    // Use environment pop if needed; on watchOS a simple dismissal works:
+                    dismiss()
+                }
+                .buttonStyle(.borderedProminent)
+            } else {
+                FlowerView(
+                    petalCount: 6,
+                    inhaleDuration: Double(duration(for: .inhale)),
+                    holdDuration: Double(duration(for: .hold)),
+                    exhaleDuration: Double(duration(for: .exhale)),
+                    phase: phase
+                )
+                .frame(width: 120, height: 120)
+                .padding(.top, 2)
+
+                VStack(spacing: 2) {
+                    Text(phase.rawValue.capitalized)
+                        .font(.title3)
+                    Text("\(totalSeconds - elapsed)s left")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.top, 2)
+            }
+        }
+        .onAppear { startTimer() }
+        .onDisappear { stopTimer() }
+    }
+
+    @Environment(\.dismiss) private var dismiss
+
+    private func startTimer() {
+        // init phase
+        (phase, phaseRemaining) = cycle[0]
+        elapsed = 0
+        WKInterfaceDevice.current().play(.start)
+
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            tick()
+        }
+    }
+
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+
+    private func tick() {
+        guard !finished else { return }
+        elapsed += 1
+        phaseRemaining -= 1
+
+        if phaseRemaining <= 0 {
+            advancePhase()
+        }
+
+        if elapsed >= totalSeconds {
+            finished = true
+            stopTimer()
+        }
+    }
+
+    private func advancePhase() {
+        // move to next phase in the cycle
+        if let idx = cycle.firstIndex(where: { $0.0 == phase }) {
+            let next = cycle[(idx + 1) % cycle.count]
+            phase = next.0
+            phaseRemaining = next.1
+        } else {
+            (phase, phaseRemaining) = cycle[0]
+        }
+        // light haptic each transition
+        WKInterfaceDevice.current().play(.click)
+    }
 }
 struct StartView: View {
     @StateObject var viewModel = HeartRateViewModel()
@@ -34,8 +320,12 @@ struct StartView: View {
                         viewModel.requestAuthorization()
                     }
                     .padding(.top, 6)
+                    Button("Open on iPhone") {
+                        viewModel.openSettingsOniPhone()
+                    }
+                    .buttonStyle(.bordered)
                 }
-            } else if viewModel.isMeasuring {
+            } else if viewModel.isStarting || viewModel.isMeasuring {
                 MeasuringView(viewModel: viewModel)
             } else if viewModel.canRepeat {
                 Text("Your data is sended to app")
@@ -45,9 +335,16 @@ struct StartView: View {
                 }
             } else {
                 Button("Start measuring") {
+                    WCSession.default.sendMessage(["LOG": "Start measuring"], replyHandler: nil)
                     viewModel.start()
                 }
             }
+        }
+        .alert("Enable Health Access", isPresented: $viewModel.showAuthAlert) {
+            Button("Open on iPhone") { viewModel.openSettingsOniPhone() }
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("To measure heart rate, allow the app to Read ‘Heart Rate’ and Write ‘Workouts’.\n\nOn iPhone: Health → Browse → Heart → Apps → Your App → Allow All.\nOn Apple Watch: Settings → Privacy & Security → Health → Your App → Allow.")
         }
     }
 }
@@ -308,7 +605,8 @@ struct WaveformShape: Shape {
 
 final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDelegate, HKLiveWorkoutBuilderDelegate, WCSessionDelegate {
     @Published var isAuthorized = false
-
+    @Published var isStarting = false
+    @Published var showAuthAlert = false
     func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) {
         
     }
@@ -319,7 +617,11 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
    func sessionReachabilityDidChange(_ session: WCSession) {
        
    }
-    
+    func openSettingsOniPhone() {
+        if WCSession.default.isReachable {
+            WCSession.default.sendMessage(["OPEN_SETTINGS": "health"], replyHandler: nil)
+        }
+    }
     private var healthStore = HKHealthStore()
     private var session: HKWorkoutSession?
     private var builder: HKLiveWorkoutBuilder?
@@ -369,6 +671,7 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
         healthStore.requestAuthorization(toShare: [workoutType], read: [heartRateType]) { success, error in
             DispatchQueue.main.async {
                 self.isAuthorized = success
+                if !success { self.showAuthAlert = true }
             }
             if success {
                 
@@ -421,6 +724,8 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
         for s in qs {
             let hr = s.quantity.doubleValue(for: unit)
             DispatchQueue.main.async {
+                if self.isStarting { self.isStarting = false }
+                if !self.isMeasuring { self.isMeasuring = true }
                 self.bpm = hr
                 self.measurements.append(hr)
                 self.checkThresholdAndFinish()
@@ -436,7 +741,9 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
         
         // Switch UI to Measuring instantly and optionally seed last HR
         DispatchQueue.main.async {
-            self.isMeasuring = true
+            WCSession.default.sendMessage(["LOG": "Start measuring2"], replyHandler: nil)
+            self.isStarting = true
+            self.isMeasuring = false
             self.earlyFinishTriggered = false
             self.canRepeat = false
             self.measurements = []
@@ -446,7 +753,7 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
         self.fetchMostRecentHeartRate()
 
         guard HKHealthStore.isHealthDataAvailable() else {
-            
+            WCSession.default.sendMessage(["LOG": "HKHealthStore.isHealthDataAvailable() = false"], replyHandler: nil)
             return
         }
 
@@ -467,17 +774,39 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
             WKInterfaceDevice.current().play(.start)
             
 
+            var isError = false
             session?.startActivity(with: Date())
             builder?.beginCollection(withStart: Date()) { success, error in
                 if let error = error {
-                    DispatchQueue.main.async { self.isMeasuring = false }
+                    WCSession.default.sendMessage(["LOG": "error builder?.beginCollection: \(error)"], replyHandler: nil)
+                    self.stopHeartRateStreaming()
+
+                    let nsErr = error as NSError
+                    if nsErr.domain == HKErrorDomain && nsErr.code == HKError.errorAuthorizationDenied.rawValue {
+                        DispatchQueue.main.async { self.showAuthAlert = true }
+                    }
+
+                    DispatchQueue.main.async {
+                        self.isStarting = false
+                        self.isMeasuring = false
+                    }
+                    isError = true
+                    
+                    return
                 } else {
                     DispatchQueue.main.async {
+                        WCSession.default.sendMessage(["LOG": "startHeartRateStreaming"], replyHandler: nil)
                         self.startHeartRateStreaming(from: Date())
+                        self.isMeasuring = true
+                        self.isStarting = false
                     }
                 }
             }
 
+            if isError {
+                return
+            }
+            
             // Measure for 30 seconds, then stop automatically
             timer?.invalidate()
             timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false) { _ in
@@ -487,6 +816,9 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
             bpmUpdateTimer?.invalidate()
             bpmUpdateTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 guard let self = self else { return }
+                
+                WCSession.default.sendMessage(["LOG": "bpmUpdateTimer"], replyHandler: nil)
+                
                 // If no fresh sample yet, reuse last known HR to keep 1 Hz cadence
                 let shouldAppend: Bool
                 if let last = self.lastSampleAt {
@@ -508,7 +840,7 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
             }
 
         } catch {
-            
+            WCSession.default.sendMessage(["LOG": "CATCH"], replyHandler: nil)
             DispatchQueue.main.async { self.isMeasuring = false }
         }
     }
@@ -522,6 +854,7 @@ final class HeartRateViewModel: NSObject, ObservableObject, HKWorkoutSessionDele
     func stop() {
         
         stopHeartRateStreaming()
+        DispatchQueue.main.async { self.isStarting = false }
         timer?.invalidate()
         timer = nil
 

@@ -35,6 +35,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             try! realm.write {
                 realm.add(p)
             }
+        } else if message["OPEN_SETTINGS"] as? String == "health" {
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                DispatchQueue.main.async {
+                    UIApplication.shared.open(url)
+                }
+            }
+        }
+        
+        else {
+            print(message)
         }
 
     }
