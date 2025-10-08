@@ -3,8 +3,85 @@ import UIKit
 import CryptoKit
 import RealmSwift
 import IMProgressHUD
+import Adapty
+import AdaptyUI
 
-class AIBot: UIViewController {
+class AIBot: UIViewController, AdaptyPaywallControllerDelegate {
+    
+    
+    private func presentMainPaywall() {
+        Task { @MainActor in
+            do {
+                let paywall = try await Adapty.getPaywall(placementId: "main")
+                guard paywall.hasViewConfiguration else {
+                    // Этот плейсмент не относится к Paywall Builder
+                    return
+                }
+                let config = try await AdaptyUI.getPaywallConfiguration(forPaywall: paywall)
+                let controller = try AdaptyUI.paywallController(with: config, delegate: self)
+                controller.modalPresentationStyle = .fullScreen
+                self.present(controller, animated: true)
+            } catch {
+                print("Adapty main paywall error: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - AdaptyPaywallControllerDelegate
+    func paywallController(_ controller: AdaptyPaywallController, didPerform action: AdaptyUI.Action) {
+        switch action {
+        case .close:
+            controller.dismiss(animated: true)
+        case let .openURL(url):
+            UIApplication.shared.open(url, options: [:])
+        case .custom(_):
+            break
+        }
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController,
+                           didFinishPurchase product: AdaptyPaywallProductWithoutDeterminingOffer,
+                           purchaseResult: AdaptyPurchaseResult) {
+        
+        if case let .success(profile, _) = purchaseResult {
+            let active = profile.accessLevels["premium"]?.isActive ?? false
+            do {
+                let realm = try Realm()
+                if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                    try realm.write { acc.isPro = active }
+                }
+            } catch {}
+        }
+        controller.dismiss(animated: true)
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailPurchase product: AdaptyPaywallProduct, error: AdaptyError) {
+        print("Adapty main purchase failed: \(error)")
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFinishRestoreWith profile: AdaptyProfile) {
+        let active = profile.accessLevels["premium"]?.isActive ?? false
+        do {
+            let realm = try Realm()
+            if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                try realm.write { acc.isPro = active }
+            }
+        } catch {}
+        controller.dismiss(animated: true)
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailRestoreWith error: AdaptyError) {
+        print("Adapty main restore failed: \(error)")
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailRendering error: AdaptyError) {
+        print("Adapty main rendering failed: \(error)")
+    }
+
+    
+    
+    
+    
 
     @IBOutlet weak var answerText: UITextView!
     @IBOutlet weak var stackViewWithMessages: UIStackView!
@@ -211,7 +288,7 @@ class AIBot: UIViewController {
 //         self.yourRobotL.isHidden = false
 //         self.descL.isHidden = false
 //         self.scrollView.isHidden = false
-//         
+//
          if let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
              UIView.animate(withDuration: duration) {
                  self.bottomConstraint.constant = 16
@@ -232,10 +309,7 @@ class AIBot: UIViewController {
     @objc func clickAI1() {
         textDield.endEditing(true)
         if !Account.m().isPro {
-            let vc = Pay()
-            vc.isStar = false
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
+            presentMainPaywall()
         } else {
             let vc = AIBot()
             vc.question = "How do you lower persistently high blood pressure?"
@@ -245,10 +319,7 @@ class AIBot: UIViewController {
     @objc func clickAI2() {
         textDield.endEditing(true)
         if !Account.m().isPro {
-            let vc = Pay()
-            vc.isStar = false
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
+            presentMainPaywall()
         } else {
             let vc = AIBot()
             vc.question = "Analyzing my performance for the year with nutritional tips"
@@ -279,10 +350,7 @@ class AIBot: UIViewController {
             
             textDield.endEditing(true)
             if !Account.m().isPro {
-                let vc = Pay()
-                vc.isStar = false
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true)
+                presentMainPaywall()
             }  else {
                 
                 if let pulse = pulse {
@@ -306,10 +374,7 @@ class AIBot: UIViewController {
     func send() {
         textDield.endEditing(true)
         if !Account.m().isPro {
-            let vc = Pay()
-            vc.isStar = false
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
+            presentMainPaywall()
         } else {
             let vc = AIBot()
             vc.question = self.question

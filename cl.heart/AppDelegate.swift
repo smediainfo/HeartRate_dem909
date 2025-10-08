@@ -1,7 +1,7 @@
 import UIKit
 import RealmSwift
-import SwiftyStoreKit
-import ApphudSDK
+//import SwiftyStoreKit
+//import ApphudSDK
 //import SVProgressHUD
 import UserNotifications
 import AppsFlyerLib
@@ -10,11 +10,17 @@ import AdSupport
 import StoreKit
 import WatchConnectivity
 import AmplitudeSwift
+import Adapty
+import AdaptyUI
 
 
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, AppsFlyerLibDelegate, WCSessionDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, AppsFlyerLibDelegate, WCSessionDelegate, AdaptyDelegate {
+    func didLoadLatestProfile(_ profile: AdaptyProfile) {
+        self.applyProStatus(from: profile)
+    }
+    
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         
@@ -61,52 +67,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
     }
     
-    func onConversionDataSuccess(_ conversionInfo: [AnyHashable : Any]) {
-        Apphud.setAttribution(data: ApphudAttributionData(rawData: conversionInfo), from: .appsFlyer, identifer: AppsFlyerLib.shared().getAppsFlyerUID(), callback: nil)
-    }
     
+    func onConversionDataSuccess(_ conversionInfo: [AnyHashable : Any]) {
+        let afId = AppsFlyerLib.shared().getAppsFlyerUID()
+        Adapty.setIntegrationIdentifier(key: "appsflyer_id", value: afId)
+        Adapty.updateAttribution(conversionInfo, source: "appsflyer")
+    }
+
     func onConversionDataFail(_ error: Error) {
-        Apphud.setAttribution(data: ApphudAttributionData(rawData: ["error" : error.localizedDescription]), from: .appsFlyer, identifer: AppsFlyerLib.shared().getAppsFlyerUID(), callback: nil)
-
-
+        let afId = AppsFlyerLib.shared().getAppsFlyerUID()
+        Adapty.setIntegrationIdentifier(key: "appsflyer_id", value: afId)
     }
     
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Apphud.submitPushNotificationsToken(token: deviceToken, callback: nil)
+//        Apphud.submitPushNotificationsToken(token: deviceToken, callback: nil)
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         
     }
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if Apphud.handlePushNotification(apsInfo: response.notification.request.content.userInfo) {
-            
-        } else {
-            
-        }
-        completionHandler()
-    }
-
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        if Apphud.handlePushNotification(apsInfo: notification.request.content.userInfo) {
-            
-        } else {
-            
-        }
-        
-        if #available(iOS 14.0, *) {
-            completionHandler([.banner, .list, .sound, .badge])
-        } else {
-            completionHandler([.alert, .sound, .badge])
-        }
-    }
-    func application(_ application: UIApplication,
-                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
-                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        let handled = Apphud.handlePushNotification(apsInfo: userInfo)
-        completionHandler(handled ? .newData : .noData)
-    }
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        if Apphud.handlePushNotification(apsInfo: response.notification.request.content.userInfo) {
+//            
+//        } else {
+//            
+//        }
+//        completionHandler()
+//    }
+//
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//        if Apphud.handlePushNotification(apsInfo: notification.request.content.userInfo) {
+//            
+//        } else {
+//            
+//        }
+//        
+//        if #available(iOS 14.0, *) {
+//            completionHandler([.banner, .list, .sound, .badge])
+//        } else {
+//            completionHandler([.alert, .sound, .badge])
+//        }
+//    }
+//    func application(_ application: UIApplication,
+//                     didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+//                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+//        let handled = Apphud.handlePushNotification(apsInfo: userInfo)
+//        completionHandler(handled ? .newData : .noData)
+//    }
 
     var window: UIWindow?
     
@@ -117,26 +125,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     Logger.log(name: status == .authorized ? "ATT success" : "ATT failure")
                     guard status == .authorized else {return}
                     let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-                    Apphud.setDeviceIdentifiers(idfa: idfa, idfv: UIDevice.current.identifierForVendor?.uuidString)
+                    amplitude?.setDeviceId(deviceId: idfa)
                 }
             }
         }
     }
     
     
+    private let adaptyAccessLevelKey = "premium" // change if your access level has another key in Adapty Dashboard
+
+    private func applyProStatus(from profile: AdaptyProfile) {
+        let isActive = profile.accessLevels[adaptyAccessLevelKey]?.isActive ?? false
+        DispatchQueue.main.async {
+            do {
+                let realm = try Realm()
+                if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                    try realm.write {
+                        acc.isPro = isActive
+                    }
+                }
+            } catch {
+                
+            }
+        }
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
+        let cfg = AdaptyConfiguration
+                    .builder(withAPIKey: "public_live_Vp9fQXCG.PkwQYwquUSUkkMNNxfn6")
+                    .with(customerUserId: UIDevice.current.identifierForVendor?.uuidString)
+                    .build()
+
+        Adapty.activate(with: cfg)  // инициализация SDK
+        Adapty.logLevel = .info     // по желанию: логирование
+        Adapty.delegate = self
+        AdaptyUI.activate()
         
-        Apphud.start(apiKey: "app_6zQ6SW8w8iBLcfMhzFpxNpWfwfHHDR")
-        Apphud.setDeviceIdentifiers(idfa: nil, idfv: UIDevice.current.identifierForVendor?.uuidString)
+//        Adapty.getProfile { [weak self] result in
+//           switch result {
+//           case .success(let profile):
+//               self?.applyProStatus(from: profile)
+//           case .failure(let error):
+//               break
+//           }
+//       }
+        
+        
+//        Apphud.start(apiKey: "app_6zQ6SW8w8iBLcfMhzFpxNpWfwfHHDR")
+//        Apphud.setDeviceIdentifiers(idfa: nil, idfv: UIDevice.current.identifierForVendor?.uuidString)
         fetchIDFA()
 
         
+        
         amplitude = Amplitude(configuration: Configuration(apiKey: "619c7123a5a6dd9f92aeecf4d8ab04d3"))
-        amplitude?.setUserId(userId: Apphud.userID())
         if let idfv = UIDevice.current.identifierForVendor?.uuidString {
+            amplitude?.setUserId(userId: idfv)
             amplitude?.setDeviceId(deviceId: idfv)
         }
         
@@ -169,70 +214,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         
 
-
-        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
-            for purchase in purchases {
-                switch purchase.transaction.transactionState {
-                case .purchased, .restored:
-                    let realm = try! Realm()
-                    try! realm.write {
-                        Account.m().isPro = true
-                    }
-                    if purchase.needsFinishTransaction {
-                        SwiftyStoreKit.finishTransaction(purchase.transaction)
-                    }
-                    break;
-                case .failed, .purchasing, .deferred:
-                    let realm = try! Realm()
-                    try! realm.write {
-                        Account.m().isPro = false
-                    }
-                }
-            }
-        }
-        
-        
-        if  Account.m().isPro  {
-            let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: autosubscribeKey)
-            SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
-                switch result {
-                case .success(let receipt):
-                    var subscriptionId: String? = nil
-                    subsList.forEach { id in
-                        let purchaseResult = SwiftyStoreKit.verifySubscription(
-                            ofType: .autoRenewable,
-                            productId: id,
-                            inReceipt: receipt)
-                        switch purchaseResult {
-                        case .purchased(let info):
-                            subscriptionId = id
-                        case .expired(_):
-                            break
-                        case .notPurchased:
-                            break
-                        }
-                    }
-
-
-                    if subscriptionId == nil {
-                        let realm = try! Realm()
-                        try! realm.write {
-                            Account.m().isPro = false
-                        }
-                    } else {
-                        let realm = try! Realm()
-                        try! realm.write {
-                            Account.m().isPro = true
-                        }
-                    }
-                case .error(let error):
-                    let realm = try! Realm()
-                    try! realm.write {
-                        Account.m().isPro = false
-                    }
-                }
-            }
-        }
+//
+//        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+//            for purchase in purchases {
+//                switch purchase.transaction.transactionState {
+//                case .purchased, .restored:
+//                    let realm = try! Realm()
+//                    try! realm.write {
+//                        Account.m().isPro = true
+//                    }
+//                    if purchase.needsFinishTransaction {
+//                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+//                    }
+//                    break;
+//                case .failed, .purchasing, .deferred:
+//                    let realm = try! Realm()
+//                    try! realm.write {
+//                        Account.m().isPro = false
+//                    }
+//                }
+//            }
+//        }
+//        
+//        
+//        if  Account.m().isPro  {
+//            let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: autosubscribeKey)
+//            SwiftyStoreKit.verifyReceipt(using: appleValidator) { result in
+//                switch result {
+//                case .success(let receipt):
+//                    var subscriptionId: String? = nil
+//                    subsList.forEach { id in
+//                        let purchaseResult = SwiftyStoreKit.verifySubscription(
+//                            ofType: .autoRenewable,
+//                            productId: id,
+//                            inReceipt: receipt)
+//                        switch purchaseResult {
+//                        case .purchased(let info):
+//                            subscriptionId = id
+//                        case .expired(_):
+//                            break
+//                        case .notPurchased:
+//                            break
+//                        }
+//                    }
+//
+//
+//                    if subscriptionId == nil {
+//                        let realm = try! Realm()
+//                        try! realm.write {
+//                            Account.m().isPro = false
+//                        }
+//                    } else {
+//                        let realm = try! Realm()
+//                        try! realm.write {
+//                            Account.m().isPro = true
+//                        }
+//                    }
+//                case .error(let error):
+//                    let realm = try! Realm()
+//                    try! realm.write {
+//                        Account.m().isPro = false
+//                    }
+//                }
+//            }
+//        }
 //        
 //        SVProgressHUD.setDefaultMaskType(.black)
         UNUserNotificationCenter.current().delegate = self

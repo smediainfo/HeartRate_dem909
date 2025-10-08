@@ -3,21 +3,90 @@
 import UIKit
 import AVFoundation
 import RealmSwift
+import Adapty
+import AdaptyUI
 
 
 protocol MonitoringDelegate: class {
     func analizePulse(pulse: Pulse)
 }
 
-class Monitoring: UIViewController, MonitoringDelegate {
+class Monitoring: UIViewController, MonitoringDelegate, AdaptyPaywallControllerDelegate {
+    
+    
+    private func presentMainPaywall() {
+        Task { @MainActor in
+            do {
+                let paywall = try await Adapty.getPaywall(placementId: "main")
+                guard paywall.hasViewConfiguration else {
+                    // Этот плейсмент не относится к Paywall Builder
+                    return
+                }
+                let config = try await AdaptyUI.getPaywallConfiguration(forPaywall: paywall)
+                let controller = try AdaptyUI.paywallController(with: config, delegate: self)
+                controller.modalPresentationStyle = .fullScreen
+                self.present(controller, animated: true)
+            } catch {
+                print("Adapty main paywall error: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - AdaptyPaywallControllerDelegate
+    func paywallController(_ controller: AdaptyPaywallController, didPerform action: AdaptyUI.Action) {
+        switch action {
+        case .close:
+            controller.dismiss(animated: true)
+        case let .openURL(url):
+            UIApplication.shared.open(url, options: [:])
+        case .custom(_):
+            break
+        }
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController,
+                           didFinishPurchase product: AdaptyPaywallProductWithoutDeterminingOffer,
+                           purchaseResult: AdaptyPurchaseResult) {
+        
+        if case let .success(profile, _) = purchaseResult {
+            let active = profile.accessLevels["premium"]?.isActive ?? false
+            do {
+                let realm = try Realm()
+                if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                    try realm.write { acc.isPro = active }
+                }
+            } catch {}
+        }
+        controller.dismiss(animated: true)
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailPurchase product: AdaptyPaywallProduct, error: AdaptyError) {
+        print("Adapty main purchase failed: \(error)")
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFinishRestoreWith profile: AdaptyProfile) {
+        let active = profile.accessLevels["premium"]?.isActive ?? false
+        do {
+            let realm = try Realm()
+            if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                try realm.write { acc.isPro = active }
+            }
+        } catch {}
+        controller.dismiss(animated: true)
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailRestoreWith error: AdaptyError) {
+        print("Adapty main restore failed: \(error)")
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailRendering error: AdaptyError) {
+        print("Adapty main rendering failed: \(error)")
+    }
 
     
     func analizePulse(pulse: Pulse) {
         if !Account.m().isPro {
-            let vc = Pay()
-            vc.isStar = false
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
+            self.presentMainPaywall()
         } else {
             let vc = AIBot()
             vc.pulse = pulse
@@ -93,10 +162,7 @@ class Monitoring: UIViewController, MonitoringDelegate {
                 self.present(vc, animated: true)
             }
         } else {
-            let vc = Pay()
-            vc.isStar = false
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
+            self.presentMainPaywall()
         }
     }
 

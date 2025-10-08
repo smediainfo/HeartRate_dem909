@@ -1,11 +1,82 @@
-
 import UIKit
 import RealmSwift
 import IMProgressHUD
+import Adapty
+import AdaptyUI
 
-import SwiftyStoreKit
+class Profile2: UIViewController, PayDelegate, AdaptyPaywallControllerDelegate {
+    
+    
+    private func presentMainPaywall() {
+        Task { @MainActor in
+            do {
+                let paywall = try await Adapty.getPaywall(placementId: "main")
+                guard paywall.hasViewConfiguration else {
+                    // Этот плейсмент не относится к Paywall Builder
+                    return
+                }
+                let config = try await AdaptyUI.getPaywallConfiguration(forPaywall: paywall)
+                let controller = try AdaptyUI.paywallController(with: config, delegate: self)
+                controller.modalPresentationStyle = .fullScreen
+                self.present(controller, animated: true)
+            } catch {
+                print("Adapty main paywall error: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - AdaptyPaywallControllerDelegate
+    func paywallController(_ controller: AdaptyPaywallController, didPerform action: AdaptyUI.Action) {
+        switch action {
+        case .close:
+            controller.dismiss(animated: true)
+        case let .openURL(url):
+            UIApplication.shared.open(url, options: [:])
+        case .custom(_):
+            break
+        }
+    }
 
-class Profile2: UIViewController, PayDelegate {
+    func paywallController(_ controller: AdaptyPaywallController,
+                           didFinishPurchase product: AdaptyPaywallProductWithoutDeterminingOffer,
+                           purchaseResult: AdaptyPurchaseResult) {
+        
+        if case let .success(profile, _) = purchaseResult {
+            let active = profile.accessLevels["premium"]?.isActive ?? false
+            do {
+                let realm = try Realm()
+                if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                    try realm.write { acc.isPro = active }
+                }
+            } catch {}
+        }
+        controller.dismiss(animated: true)
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailPurchase product: AdaptyPaywallProduct, error: AdaptyError) {
+        print("Adapty main purchase failed: \(error)")
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFinishRestoreWith profile: AdaptyProfile) {
+        let active = profile.accessLevels["premium"]?.isActive ?? false
+        do {
+            let realm = try Realm()
+            if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                try realm.write { acc.isPro = active }
+            }
+        } catch {}
+        controller.dismiss(animated: true)
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailRestoreWith error: AdaptyError) {
+        print("Adapty main restore failed: \(error)")
+    }
+
+    func paywallController(_ controller: AdaptyPaywallController, didFailRendering error: AdaptyError) {
+        print("Adapty main rendering failed: \(error)")
+    }
+
+    
     func closeScreen() {
         upd()
     }
@@ -109,71 +180,46 @@ class Profile2: UIViewController, PayDelegate {
     @IBAction func clickSub(_ sender: Any) {
         if !Account.m().isPro {
             Logger.log(name: "profile_paywall_pro_tapped")
-            let vc = Pay()
-            vc.delegate = self
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true)
+            self.presentMainPaywall()
         }
     }
     @IBAction func clickRestore(_ sender: Any) {
         IMProgressHUD.show()
-        let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: autosubscribeKey)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator, completion: {result in
-            IMProgressHUD.hide()
-            switch result {
-            case .success(let receipt):
-                var currentId: String = ""
-                let pendingRenewalInfo = receipt["pending_renewal_info"] as? [ReceiptInfo]
-                if let prodctId = pendingRenewalInfo?[0]["product_id"] as? String {
-                    currentId = prodctId
-                }
-                if currentId.count == 0 {
-                    let ac = UIAlertController(title: nil, message: "Nothing to restore", preferredStyle: .alert)
-                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(ac, animated: true, completion: nil)
-                    return
-                }
-                let restoreResult = SwiftyStoreKit.verifySubscription(ofType: .autoRenewable,
-                                                                      productId: currentId,
-                                                                      inReceipt: receipt,
-                                                                      validUntil: Date())
-                switch restoreResult {
-                case .purchased(_, _):
-                    let realm = try! Realm()
-                    try! realm.write {
-                        Account.m().isPro = true
+        Task { @MainActor in
+            defer { IMProgressHUD.hide() }
+            do {
+                let profile = try await Adapty.restorePurchases()
+                let active = profile.accessLevels["premium"]?.isActive ?? false
+                do {
+                    let realm = try Realm()
+                    if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                        try realm.write { acc.isPro = active }
                     }
-                case .expired(_, _):
-                    let realm = try! Realm()
-                    try! realm.write {
-                        Account.m().isPro = false
-                    }
-                    let ac = UIAlertController(title: nil, message: "Nothing to restore", preferredStyle: .alert)
-                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(ac, animated: true, completion: nil)
-                    
-                case .notPurchased:
-                    let realm = try! Realm()
-                    try! realm.write {
-                        Account.m().isPro = false
-                    }
-                    let ac = UIAlertController(title: nil, message: "Nothing to restore", preferredStyle: .alert)
-                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(ac, animated: true, completion: nil)
-                    
+                } catch {
+                    // ignore realm write error
                 }
-            case .error:
-                let realm = try! Realm()
-                try! realm.write {
-                    Account.m().isPro = false
-                }
-                let ac = UIAlertController(title: nil, message: "Nothing to restore", preferredStyle: .alert)
+                // Покажем понятный результат для пользователя
+                let message = active ? "Purchases restored" : "Nothing to restore"
+                let ac = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(ac, animated: true, completion: nil)
-                return
+                self.present(ac, animated: true)
+                self.upd()
+            } catch {
+                // Ошибка восстановления
+                do {
+                    let realm = try Realm()
+                    if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
+                        try realm.write { acc.isPro = false }
+                    }
+                } catch {
+                    // ignore
+                }
+                let ac = UIAlertController(title: nil, message: "Restore failed", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(ac, animated: true)
+                self.upd()
             }
-            self.upd()
-        })
+        }
     }
     
     @IBAction func changeSex(_ sender: Any) {
