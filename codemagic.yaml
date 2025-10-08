@@ -28,6 +28,11 @@ workflows:
           cd $CM_BUILD_DIR
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+      - name: Fix watchOS build settings
+        script: |
+          echo "Fixing Base SDK and deployment target for Watch App"
+          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = .*/IPHONEOS_DEPLOYMENT_TARGET = 16.0;/g' cl.heart.xcodeproj/project.pbxproj
+          sed -i '' 's/SDKROOT = iphoneos/SDKROOT = watchos/g' cl.heart.xcodeproj/project.pbxproj
       - name: Build ipa for distribution
         script: |
           set -o pipefail && xcodebuild \
