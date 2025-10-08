@@ -14,7 +14,7 @@ workflows:
         XCODE_WORKSPACE: "cl.heart.xcworkspace"
         XCODE_SCHEME: "cl.heart"
         APP_STORE_APPLE_ID: 6746779084
-      xcode: 16.1
+      xcode: latest
     scripts:
       - name: Resolve Swift Package Manager dependencies
         script: |
