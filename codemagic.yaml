@@ -16,6 +16,9 @@ workflows:
         APP_STORE_APPLE_ID: 6746779084
       xcode: latest
     scripts:
+      - name: Clean DerivedData (safety)
+        script: |
+          rm -rf "$HOME/Library/Developer/Xcode/DerivedData" || true
       - name: Resolve Swift Package Manager dependencies
         script: |
           xcodebuild -resolvePackageDependencies \
@@ -33,6 +36,14 @@ workflows:
           echo "Fixing Base SDK and deployment target for Watch App"
           sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = .*/IPHONEOS_DEPLOYMENT_TARGET = 16.0;/g' cl.heart.xcodeproj/project.pbxproj
           sed -i '' 's/SDKROOT = iphoneos/SDKROOT = watchos/g' cl.heart.xcodeproj/project.pbxproj
+      - name: Diagnose watch assets with actool
+        script: |
+          set -e
+          xcrun actool --output-format human-readable-text --notices --warnings \
+            --platform watchos \
+            --compile "$CM_BUILD_DIR/actool-watch" \
+            --minimum-deployment-target 11.5 \
+            "HeartRate Watch App/Assets.xcassets" || true
       - name: Build ipa for distribution
         script: |
           set -o pipefail && xcodebuild \
