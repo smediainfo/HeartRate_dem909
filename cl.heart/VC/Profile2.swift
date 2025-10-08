@@ -191,7 +191,7 @@ class Profile2: UIViewController, PayDelegate, AdaptyPaywallControllerDelegate {
                 let profile = try await Adapty.restorePurchases()
                 let active = profile.accessLevels["premium"]?.isActive ?? false
                 do {
-                    let realm = try Realm()
+                    let realm = try await Realm()
                     if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
                         try realm.write { acc.isPro = active }
                     }
@@ -207,7 +207,7 @@ class Profile2: UIViewController, PayDelegate, AdaptyPaywallControllerDelegate {
             } catch {
                 // Ошибка восстановления
                 do {
-                    let realm = try Realm()
+                    let realm = try await Realm()
                     if let acc = realm.object(ofType: Account.self, forPrimaryKey: "main") {
                         try realm.write { acc.isPro = false }
                     }
