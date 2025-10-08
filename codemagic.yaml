@@ -14,73 +14,48 @@ workflows:
         XCODE_WORKSPACE: "cl.heart.xcworkspace"
         XCODE_SCHEME: "cl.heart"
         APP_STORE_APPLE_ID: 6746779084
-      xcode: 26
+      xcode: latest
     scripts:
-      - name: Clean DerivedData (safety)
-        script: |
-          rm -rf "$HOME/Library/Developer/Xcode/DerivedData" || true
-
       - name: Resolve Swift Package Manager dependencies
         script: |
           xcodebuild -resolvePackageDependencies \
             -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
             -scheme "$XCODE_SCHEME"
-
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
-
       - name: Increment build number
         script: |
           cd $CM_BUILD_DIR
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
-
-      # ⬇️ Ключевой шаг: убираем watch-таргеты из шага Archive схемы iOS
-      - name: Detach Watch targets from Archive (scheme-safe)
+      - name: Build ipa for distribution
         script: |
-          SCHEME_PATH="cl.heart.xcodeproj/xcshareddata/xcschemes/cl.heart.xcscheme"
-          cp "$SCHEME_PATH" "$SCHEME_PATH.bak" || true
-          # удаляем BuildActionEntry с упоминанием Watch App / Extension (аккуратно, только в Archive-блоке)
-          sed -i '' '/HeartRate Watch App Extension/,+6d' "$SCHEME_PATH" || true
-          sed -i '' '/HeartRate Watch App.app/,+6d' "$SCHEME_PATH" || true
-          sed -i '' '/BlueprintName = "HeartRate Watch App Extension"/,/<\/BuildActionEntry>/d' "$SCHEME_PATH" || true
-          sed -i '' '/BlueprintName = "HeartRate Watch App"/,/<\/BuildActionEntry>/d' "$SCHEME_PATH" || true
-
-      # (необязательно) Диагностика ассетов watchOS — просто чтобы увидеть явные жалобы actool, если останутся
-      - name: Diagnose watch assets with actool
-        script: |
-          xcrun actool --output-format human-readable-text --notices --warnings \
-            --platform watchos \
-            --compile "$CM_BUILD_DIR/actool-watch" \
-            --minimum-deployment-target 11.5 \
-            "HeartRate Watch App/Assets.xcassets" || true
-
-      - name: Build ipa for distribution (iOS archive only)
-        script: |
-          set -o pipefail && xcodebuild \
-            -workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
-            -scheme "$XCODE_SCHEME" \
-            -configuration Release \
-            -destination 'generic/platform=iOS' \
-            -archivePath "$CM_BUILD_DIR/$XCODE_SCHEME.xcarchive" archive
-
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-
     publishing:
       email:
         recipients:
           - dem909@gmail.com
+
         notify:
           success: true
           failure: false
       app_store_connect:
         auth: integration
+
+        # Configuration related to TestFlight (optional)
+        # Note: This action is performed during post-processing.
         submit_to_testflight: true
-        beta_groups:
+        beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
           - group name 1
           - group name 2
+
+        # Configuration related to App Store (optional)
+        # Note: This action is performed during post-processing.
         submit_to_app_store: false
